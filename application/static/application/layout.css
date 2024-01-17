@@ -54,6 +54,60 @@ table {
 .container
 {
     background-color: lightgreen;
+    margin: 0 auto;
     height: 100%;
     width: 100%;
 }
+
+.layout-container
+{
+    text-align: center; 
+    padding-top: 2em;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.menu
+{
+    padding: 1em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.page
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 40%;
+}
+
+.page-item-link
+{
+    text-decoration: none;
+    color: black
+}
+
+.search
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 23%;
+}
+
+.search input[type=text]
+{
+    width: 300px;
+    height: 20px;
+}
+
+.search input[type=submit]
+{
+    width: 70px;
+    height: 25px;
+}
+

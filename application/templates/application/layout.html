@@ -14,18 +14,21 @@
     <div class="container">
         <header>
             <div class="layout-container">
-                <h1 id="headline">ฐานข้อมูลความหลากหลายพรรณไม้ ณ อุทยานการศึกษารัชมังคลาภิเษก มสธ.</h1>
+                <h1>ฐานข้อมูลความหลากหลายพรรณไม้ ณ อุทยานการศึกษารัชมังคลาภิเษก มสธ.</h1>
 
                 <div class="menu">
                     <ul class="page">
                         <li class="page-item">
-                            <a href="{% url 'plantList' %}" class="menu-page-link"><h2>Plant List</h2></a>
+                            <a href="{% url 'index' %}" class="page-item-link"><h2>Home</h2></a>
+                        </li>
+                        <li class="page-item">
+                            <a href="{% url 'plantList' %}" class="page-item-link"><h2>Plant List</h2></a>
                         </li>
                         <li class="menu-item">
-                            <a href="{% url 'letterIndexList' %}" class="menu-page-link"><h2>Letter Index List</h2></a>
+                            <a href="{% url 'letterIndexList' %}" class="page-item-link"><h2>Letter Index List</h2></a>
                         </li>
                         <li class="menu-item">
-                            <a href="{% url 'familyIndexList' %}" class="menu-page-link"><h2>Family Index List</h2></a>
+                            <a href="{% url 'familyIndexList' %}" class="page-item-link"><h2>Family Index List</h2></a>
                         </li>
                     </ul>
 
