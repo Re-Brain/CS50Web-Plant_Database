@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'application/layout.css'%}">
+    {% block extra_css %}
+    {% endblock %}
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="layout-container">
+                <h1 id="headline">ฐานข้อมูลความหลากหลายพรรณไม้ ณ อุทยานการศึกษารัชมังคลาภิเษก มสธ.</h1>
+
+                <div class="menu">
+                    <ul class="page">
+                        <li class="page-item">
+                            <a href="{% url 'plantList' %}" class="menu-page-link"><h2>Plant List</h2></a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="{% url 'letterIndexList' %}" class="menu-page-link"><h2>Letter Index List</h2></a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="{% url 'familyIndexList' %}" class="menu-page-link"><h2>Family Index List</h2></a>
+                        </li>
+                    </ul>
+
+                    <div class="search">
+                        <input type="text">
+                        <input type="submit" value="search">
+                    </div>
+                </div>
+
+                
+            </div>
+
+        </header>
+
+        <main>
+            <div class="main-container">
+                {% block body %}
+                {% endblock %}
+            </div>
+        </main>
+    </div>
+</body>
+</html>
+
