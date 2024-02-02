@@ -1,0 +1,113 @@
+.top
+{
+    margin-top: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.detail
+{
+    width: 70%;
+    background-color: lightblue;
+    padding: 2em;
+}
+
+.detail p
+{
+    text-indent: 20px;
+    letter-spacing: 1px;
+    line-height: 1.5;
+}
+
+.center
+{
+    margin-top: 4em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.advanceSearch
+{ 
+    background-color: lightyellow;
+    width: 23%;
+    padding: 1em;
+}
+
+.advanceSearch h2
+{
+   margin-bottom: 1em;
+   text-align: center;
+}
+
+.advanceSearch .form
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.form-item
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0.5em 0em;
+}
+
+.form-button
+{
+    display: flex;
+    justify-content: center;
+}
+
+.form-button input
+{
+   margin: 1em 1em;
+}
+
+.bottom
+{
+    margin-top: 4em;
+}
+
+.searchOption
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 0 auto;
+    width: 80%;
+    border: 1px solid black;
+    padding: 2em;
+}
+
+.searchOption-item
+{
+    width: 20%;
+    height: 15em;
+    border: 1px solid black;
+    background-color: lightsalmon;
+    padding: 1em;
+    border-radius: 10px;
+}
+
+.searchOption-item-link
+{
+    text-decoration: none;
+    color: black;
+}
+
+.searchOption-item-link h3
+{
+    text-align: center;
+    margin: 0.5em;
+}
+
+.searchOption-item-link p 
+{
+   margin-top: 2em;
+   line-height: 1.5;
+   letter-spacing: 1px;
+}

@@ -24,17 +24,19 @@
                         <li class="page-item">
                             <a href="{% url 'plantList' %}" class="page-item-link"><h2>Plant List</h2></a>
                         </li>
-                        <li class="menu-item">
+                        <li class="page-item">
                             <a href="{% url 'letterIndexList' %}" class="page-item-link"><h2>Letter Index List</h2></a>
                         </li>
-                        <li class="menu-item">
+                        <li class="page-item">
                             <a href="{% url 'familyIndexList' %}" class="page-item-link"><h2>Family Index List</h2></a>
                         </li>
                     </ul>
 
                     <div class="search">
-                        <input type="text">
-                        <input type="submit" value="search">
+                        <form action="">
+                            <input type="text">
+                            <input type="submit" value="search">
+                        </form>
                     </div>
                 </div>
 
@@ -49,6 +51,8 @@
                 {% endblock %}
             </div>
         </main>
+       
+         
     </div>
 </body>
 </html>

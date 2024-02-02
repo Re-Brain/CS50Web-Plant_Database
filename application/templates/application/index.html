@@ -1,10 +1,93 @@
 {% extends "application/layout.html" %}
+
 {% load static %}
-
+    
 {% block extra_css %}
-
+    <link rel="stylesheet" href="{% static 'application/index.css'%}">
 {% endblock %}
 
 {% block body %}
-    <h1>Main</h1>
+
+<div class="main-container">
+
+    <section class="top">
+        <div class="detail">
+            <p>
+                ฐานข้อมูลพรรณไม้ในอุทยานการศึกษาเป็นส่วนหนึ่งของฐานข้อมูลองค์ความรู้ต่างๆ
+                ที่สถานอุทยานการศึกษารัชมังคลาภิเษก จัดทำขึ้นเพื่อให้เป็นแหล่งเรียนรู้ตามอัธยาศัย 
+                โดยรวบรวมข้อมูลเกี่ยวกับพรรณไม้ที่มีในบริเวณอุทยานการศึกษารัชมังคลาภิเษก 
+                มหาวิทยาลัยสุโขทัยธรรมาธิราช ซึ่งอุทยานการศึกษารัชมังคลาภิเษก เป็นพื้นที่สีเขียวที่มีความสงบ 
+                ร่มรื่น สวยงามตามธรรมชาติ และเป็นส่วนหนึ่งของเมืองอัจฉริยะ เพื่อพักผ่อนหย่อนใจและทำกิจกรรมนันทนาการของประชาชนโดยทั่วไป 
+                บนพื้นที่ประมาณ 35 ไร่ พื้นที่ได้มีการพัฒนาให้เป็นสวนพฤกษชาติที่มีการปลูกพรรณไม้นานาชนิดและเป็นแหล่งเรียนรู้ตามอัธยาศัยภายในอุทยานการศึกษาจะประกอบด้วย 
+                ศูนย์การเรียนรู้วิชาการเกษตรในเมือง ศูนย์การเรียนรู้กล้วยไม้  ศูนย์การเรียนรู้พืชสมุนไพร ศูนย์การเรียนรู้เกษตรสาธิตผลไม้เมืองนนท์ สวนบัว และสวนสุขภาพ 
+                โดยมีอาคารสัญลักษณ์ศาลาพุ่มข้าวบิณฑ์เป็นศูนย์กลางของอุทยาน มีหอพระ มีอาคารจัดแสดงพิพิธภัณฑ์การศึกษาทางไกล ส่วนจัดแสดงนิทรรศการชั่วคราว 
+                และการสาธิต การให้องค์ความรู้ด้านต่างๆ ด้วยเทคโนโลยีสมัยใหม่ ซึ่งองค์ความรู้และฐานข้อมูลที่จัดทำขึ้นนั้น สถานอุทยานการศึกษาจะนำมาเผยแพร่ผ่านทางเว็บไซต์
+                และพัฒนาเป็นสื่อการเรียนรู้สามมิติแบบมีปฏิสัมพันธ์เสมือนจริง ซึ่งนักเรียน นักศึกษา ประชาชนและผู้สนใจทั่วไปสามารถเข้าไปศึกษาหาความรู้ได้ตามอัธยาศัยในอนาคต
+            </p>
+        </div>
+
+    </section>
+
+    <section class="center">
+        <div class="advanceSearch">
+            <h2>Advance Search</h2>
+            <form action="" class="form">
+                <div class="form-item">
+                    <label for="">Scientific Name</label>
+                    <input type="text">
+                </div>
+
+                <div class="form-item">
+                    <label for="">Family Name</label>
+                    <input type="text">
+                </div>
+
+                <div class="form-item">
+                    <label for="">Common Name</label>
+                    <input type="text">
+                </div>
+
+                <div class="form-button">
+                    <input type="button" value="search">
+                    <input type="submit" value="clear">
+                </div>
+            
+            </form>
+        </div>
+    </section>
+
+
+    <section class="bottom">
+        <ul class="searchOption">
+            <li class="searchOption-item">
+                <a href="{% url 'plantList' %}" class="searchOption-item-link">
+                    <h3>พรรณไม้ทั้งหมด</h3>
+                    <h3>Plant List</h3>
+                    <p>
+                        แสดงรายการพรรณไม้ทั้งหมดจากฐานข้อมูลความหลากหลายพรรณไม้ ณ อุทยานการศึกษารัชมังคลาภิเษก มสธ.
+                    </p>
+                </a>
+            </li>
+            <li class="searchOption-item">
+                <a href="{% url 'letterIndexList' %}" class="searchOption-item-link">
+                    <h3>ดัชนีตามอักษร</h3>
+                    <h3>Letter Index List</h3>
+                    <p>
+                        แสดงรายการพรรณไม้ตามดัชนีอักษร ก-ฮ และ a-z จากฐานข้อมูลความหลากหลายพรรณไม้ ณ อุทยานการศึกษารัชมังคลาภิเษก มสธ.
+                    </p>
+                </a>
+            </li>
+            <li class="searchOption-item">
+                <a href="{% url 'familyIndexList' %}" class="searchOption-item-link">
+                    <h3>แสดงตามวงศ์</h3>
+                    <h3>Family Index List</h3>
+                    <p>
+                        แสดงรายการพรรณไม้ตามชื่อวงศ์จากฐานข้อมูลความหลากหลายพรรณไม้ ณ อุทยานการศึกษารัชมังคลาภิเษก มสธ.
+                    </p>
+                </a>
+            </li>
+        </ul>
+    </section>
+</div>
+       
 {% endblock %}
