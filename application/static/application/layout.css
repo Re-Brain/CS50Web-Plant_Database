@@ -51,9 +51,9 @@ table {
 
 /* CSS Style Code */
 
-.container
+.home-container
 {
-    background-color: lightgreen;
+    /* background-color: lightgreen; */
     height: 100%;
     width: 100%;
 }
@@ -86,13 +86,19 @@ table {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    width: 50%;
+    width: 80%;
 }
 
 .page-item-link
 {
     text-decoration: none;
-    color: black
+    color: black;
+}
+
+.page-item-search
+{
+    display: flex;
+    align-items: center;
 }
 
 .search

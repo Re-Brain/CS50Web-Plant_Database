@@ -1,0 +1,23 @@
+{% extends "application/layout.html" %}
+
+{% load static %}
+    
+{% block extra_css %}
+
+{% endblock %}
+
+{% block body %}
+    <button class="btn btn-primary btn-sm" id="dashboard">List</button>
+    <button class="btn btn-primary btn-sm" id="create">Create</button>
+    <a href="{% url 'logout' %}" class="btn btn-primary btn-sm" tabindex="-1" role="button" aria-disabled="true">Logout</a>
+    <div id="dashboard">
+    </div>
+
+    <div id="create-view">
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'application/admin.js' %}"></script>
+{% endblock %}

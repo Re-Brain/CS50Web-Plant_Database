@@ -1,0 +1,20 @@
+{% extends "application/layout.html" %}
+{% load static %}
+
+{% block extra_css %}
+
+{% endblock %}
+
+{% block body %}
+    <h1>Add plant to the database</h1>
+
+    <form action="">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+        
+        <input type="submit" value="Submit" class="btn btn-secondary">
+    </form>
+    
+    
+{% endblock %}

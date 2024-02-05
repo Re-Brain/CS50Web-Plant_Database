@@ -6,17 +6,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{% static 'application/bootstrap/css/bootstrap.css'%}">
     <link rel="stylesheet" href="{% static 'application/layout.css'%}">
     {% block extra_css %}
     {% endblock %}
+    {% block script %}
+    {% endblock %}
 </head>
 <body>
-    <div class="container">
+    <div class="home-container">
         <header>
             <div class="layout-container">
                 <h1>ฐานข้อมูลความหลากหลายพรรณไม้ ณ อุทยานการศึกษารัชมังคลาภิเษก มสธ.</h1>
 
-                <div class="menu">
+                <div class="menu border border-dark">
                     <ul class="page">
                         <li class="page-item">
                             <a href="{% url 'index' %}" class="page-item-link"><h2>Home</h2></a>
@@ -30,14 +33,23 @@
                         <li class="page-item">
                             <a href="{% url 'familyIndexList' %}" class="page-item-link"><h2>Family Index List</h2></a>
                         </li>
-                    </ul>
-
-                    <div class="search">
-                        <form action="">
+                        <li class="page-item-search border border-dark">
+                             <form action="">
                             <input type="text">
                             <input type="submit" value="search">
                         </form>
-                    </div>
+                        </li>
+                        {% if user.is_authenticated %}
+                            <li class="page-item">
+                                <a href="{% url 'dashboard' %}" class="page-item-link"><h2>Staff_In</h2></a>
+                            </li>
+                        {% else %}
+                            <li class="page-item">
+                                <a href="{% url 'login' %}" class="page-item-link"><h2>Staff_Out</h2></a>
+                            </li>
+                        {% endif %}
+                       
+                    </ul>
                 </div>
 
                 
@@ -52,7 +64,7 @@
             </div>
         </main>
        
-         
+        <script src="{% static 'application/bootstrap/js/bootstrap.js'%}"></script>
     </div>
 </body>
 </html>

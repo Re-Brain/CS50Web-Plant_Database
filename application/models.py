@@ -19,7 +19,7 @@ class qrImage(models.Model):
     
 class plantImage(models.Model):
     image = models.ImageField(null=True, blank=True, upload_to="plant/")
-
+    
 class plant(models.Model):
     name = models.CharField(max_length=100)
     scientificName = models.CharField(max_length=100)
