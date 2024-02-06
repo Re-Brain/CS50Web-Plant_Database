@@ -31,7 +31,7 @@ class plant(models.Model):
     habitat = models.TextField(null=True, blank=True)
     care = models.TextField(null=True, blank=True)
     location = models.TextField(null=True, blank=True)
-    references = models.URLField()
+    references = models.URLField(null=True, blank=True)
     qrImageList = models.ManyToManyField("qrImage", related_name="qrImg", blank=True)
     plantImageList = models.ManyToManyField("plantImage", related_name="plantImg", blank=True)
 

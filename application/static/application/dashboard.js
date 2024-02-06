@@ -1,23 +1,24 @@
 document.addEventListener("DOMContentLoaded", function () {
     // Use buttons to toggle between views
     document
-      .querySelector("#inbox")
-      .addEventListener("click", () => load_mailbox("inbox"));
+      .querySelector("#dashboard")
+      .addEventListener("click", () => load_dashboard());
     document
-      .querySelector("#sent")
-      .addEventListener("click", () => load_mailbox("sent"));
-    document
-      .querySelector("#archived")
-      .addEventListener("click", () => load_mailbox("archive"));
-    document.querySelector("#compose").addEventListener("click", compose_email);
-    document
-      .querySelector("#compose-form")
-      .addEventListener("submit", send_email);
+      .querySelector("#create")
+      .addEventListener("click", () => load_create());
   
     // By default, load the inbox
-    load_mailbox("inbox");
-  
-    document.querySelectorAll(".email").addEventListener("click", function () {
-      load_page(document.querySelectorAll(".email").querySelector("#id").value);
-    });
+    load_dashboard();
   });
+
+function load_dashboard() {
+    // Show compose view and hide other views
+    document.querySelector("#dashboard-view").style.display = "block";
+    document.querySelector("#create-view").style.display = "none";
+}
+
+function load_create() {
+    // Show compose view and hide other views
+    document.querySelector("#dashboard-view").style.display = "none";
+    document.querySelector("#create-view").style.display = "block";
+}

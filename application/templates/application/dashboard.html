@@ -10,14 +10,17 @@
     <button class="btn btn-primary btn-sm" id="dashboard">List</button>
     <button class="btn btn-primary btn-sm" id="create">Create</button>
     <a href="{% url 'logout' %}" class="btn btn-primary btn-sm" tabindex="-1" role="button" aria-disabled="true">Logout</a>
-    <div id="dashboard">
+
+    <div id="dashboard-view">
+        <h1>dashboard</h1>
     </div>
 
     <div id="create-view">
+        <h1>create</h1>
     </div>
 
 {% endblock %}
 
 {% block script %}
-    <script src="{% static 'application/admin.js' %}"></script>
+    <script src="{% static 'application/dashboard.js' %}"></script>
 {% endblock %}
