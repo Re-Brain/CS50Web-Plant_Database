@@ -15,7 +15,7 @@
                 <h2>{{ first_letter }}</h2>
                 <div class="index-item-names">
                     {% for family_name in family_name_list %}
-                        <a href="{% url 'list' familyName=family_name %}"class="index-item-name">{{ family_name }}</a>
+                        <a href="{% url 'familyNameSort' familyName=family_name %}"class="index-item-name">{{ family_name }}</a>
                     {% endfor %}
                 </div>
             </div>

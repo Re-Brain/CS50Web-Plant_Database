@@ -12,5 +12,5 @@ urlpatterns = [
     path("logout", views.logout_user, name="logout"),
     path("dashboard", views.dashboard, name="dashboard"),
     path("plant/<int:id>", views.plantData, name="plant"),
-    path("list/<str:familyName>", views.list, name="list")
+    path("familyNameSort/<str:familyName>", views.familyNameSort, name="familyNameSort")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

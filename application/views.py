@@ -24,10 +24,16 @@ def plantList(request):
     page_number = request.GET.get('page')
     venues = paginator.get_page(page_number)
 
-    return render(request, "application/list.html", {"venues" : venues })
+    return render(request, "application/plantList.html", {"venues" : venues })
 
 def letterIndexList(request):
-    return render(request, "application/letterIndexList.html")
+    allPlant = plant.objects.all()
+
+    paginator = Paginator(allPlant, 20)
+    page_number = request.GET.get('page')
+    venues = paginator.get_page(page_number)
+
+    return render(request, "application/letterIndexList.html", {"venues" : venues })
 
 def familyIndexList(request):
     allFamilyName = familyName.objects.all()
@@ -45,14 +51,14 @@ def familyIndexList(request):
 
     return render(request, "application/familyIndexList.html", {"organized_data" : organized_data})
 
-def list(request, familyName):
+def familyNameSort(request, familyName):
     allPlant = plant.objects.filter(familyNameList__familyName=familyName)
 
     paginator = Paginator(allPlant, 20)
     page_number = request.GET.get('page')
     venues = paginator.get_page(page_number)
 
-    return render(request, "application/list.html", {"venues" : venues })
+    return render(request, "application/result.html", {"venues" : venues })
 
 def login_user(request):
     if request.method == "POST":

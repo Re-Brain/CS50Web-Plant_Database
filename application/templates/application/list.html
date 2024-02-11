@@ -1,15 +1,10 @@
-{% extends "application/layout.html" %}
-
 {% load static %}
     
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'application/plantList.css'%}">
+    <link rel="stylesheet" href="{% static 'application/list.css'%}">
 {% endblock %}
 
 {% block body %}
-    <h1>ฐานข้อมูลพันธุ์ไม้</h1>
-    <h1>Plant List</h1>
-
     {% include "application/nav.html" %} 
 
     <div class="container" id="list">
