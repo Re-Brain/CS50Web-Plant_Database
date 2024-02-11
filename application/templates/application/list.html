@@ -1,0 +1,66 @@
+{% extends "application/layout.html" %}
+
+{% load static %}
+    
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'application/plantList.css'%}">
+{% endblock %}
+
+{% block body %}
+    <h1>ฐานข้อมูลพันธุ์ไม้</h1>
+    <h1>Plant List</h1>
+
+    {% include "application/nav.html" %} 
+
+    <div class="container" id="list">
+        <div class="row p-3 border row-display mt-3 mb-3">
+            <div class="col">
+            <h5>Name</h5>
+            </div>
+            <div class="col">
+            <h5>Scientific Name</h5>
+            </div>
+            <div class="col">
+            <h5>Family Name</h5>
+            </div>
+            <div class="col">
+            <h5>Common Name</h5>
+            </div>
+        </div>
+
+        {% for plant in venues %}
+            <a href="{% url 'plant' id=plant.id %}" class="plant">
+                <div class="row p-3 border row-display mt-3 mb-3">
+                    <div class="col">
+                        {{ plant.name }}
+                    </div>
+                    <div class="col">
+                        {{ plant.scientificName }}
+                    </div>
+                    <div class="col">
+                        {% for name in plant.familyNameList.all %}
+                            {{ name }}
+                            <br>
+                        {% endfor %}
+                    </div>
+                    <div class="col">
+                        {% if plant.commonNameList.all %}
+                            {% for name in plant.commonNameList.all %}
+                                {{ name }}{% if not forloop.last %},{% endif %}
+                            {% endfor %}
+                        {% else %}
+                            No family names available.
+                        {% endif %}
+                    </div>
+                </div>
+            </a>           
+        {% endfor %}
+    </div>
+
+    {% include "application/nav.html" %} 
+
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}

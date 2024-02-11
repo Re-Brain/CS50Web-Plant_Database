@@ -3,6 +3,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.paginator import Paginator
+from .models import plant, familyName
+import string
+
 # from .forms import plantFormTop
 # Create your views here.
 
@@ -14,13 +18,41 @@ def index(request):
     return render(request, "application/index.html")
 
 def plantList(request):
-    return render(request , "application/plantList.html")
+    allPlant = plant.objects.all()
+
+    paginator = Paginator(allPlant, 20)
+    page_number = request.GET.get('page')
+    venues = paginator.get_page(page_number)
+
+    return render(request, "application/list.html", {"venues" : venues })
 
 def letterIndexList(request):
     return render(request, "application/letterIndexList.html")
 
 def familyIndexList(request):
-    return render(request, "application/familyIndexList.html")
+    allFamilyName = familyName.objects.all()
+    organized_data = {}
+
+    for uppercase_letter in string.ascii_uppercase:
+        organized_data[uppercase_letter] = []
+
+    for name in allFamilyName:
+        first_letter = name.familyName[0].upper()
+        organized_data[first_letter].append(name)
+
+    for key, value in organized_data.items():
+        organized_data[key] = sorted(value, key=lambda x: x.familyName)
+
+    return render(request, "application/familyIndexList.html", {"organized_data" : organized_data})
+
+def list(request, familyName):
+    allPlant = plant.objects.filter(familyNameList__familyName=familyName)
+
+    paginator = Paginator(allPlant, 20)
+    page_number = request.GET.get('page')
+    venues = paginator.get_page(page_number)
+
+    return render(request, "application/list.html", {"venues" : venues })
 
 def login_user(request):
     if request.method == "POST":
@@ -46,11 +78,19 @@ def logout_user(request):
 
 def dashboard(request):
     if request.user.is_authenticated:
-        return render(request, "application/dashboard.html")
+        allPlant = plant.objects.all()
+
+        paginator = Paginator(allPlant, 20)
+        page_number = request.GET.get('page')
+        venues = paginator.get_page(page_number)
+
+        return render(request, "application/dashboard.html", {"venues" : venues})
     else:
         messages.success(request, ("Please login to use the dashboard"))
         return redirect('login')
+    
+def plantData(request, id):
+    data = plant.objects.get(id=id)
+    return render(request, "application/plant.html", {"data" : data })
 
-# def create(request):
-#     form = plantFormTop
-#     return render(request, 'application/create.html', {'form' : form})
+ 

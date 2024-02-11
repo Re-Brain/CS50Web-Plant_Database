@@ -17,11 +17,7 @@ class Command(BaseCommand):
             reader = csv.reader(file)
             next(reader)  # Skip the header row if it exists
 
-            folder_path = 'C:\\Users\\admin\Work\\Code\\Plant_Project\\plantDatabase\\application\\media\\image'
-            folders = sorted(os.listdir(folder_path), key=lambda x: int(x))
-    
-
-            for row, folder in zip(reader, folders):
+            for row in reader:
                 family_name_list = row[2].split(',')
                 common_name_list =  row[3].split(',')
                 
@@ -43,22 +39,5 @@ class Command(BaseCommand):
                
                 new_instance.familyNameList.add(*familyName_instance_list)
                 new_instance.commonNameList.add(*commonName_instance_list)
-
-                print(folder)
-
-                folder_image_path = os.path.join(folder_path, folder)
-                for root, dirs, files in os.walk(folder_image_path):
-                    image_instance_list = []
-                    for file in files:
-                         if file.endswith(('.png', '.jpg', '.jpeg', '.gif')):
-                            file_path = os.path.join(root, file)
-                            image_related_instance , image_create = plantImage.objects.get_or_create(image=file_path)
-                            image_instance_list.append(image_related_instance)
-                    
-                    new_instance.plantImageList.add(*image_instance_list)
-
-                            
-
                 
-
         self.stdout.write(self.style.SUCCESS('Data imported successfully'))

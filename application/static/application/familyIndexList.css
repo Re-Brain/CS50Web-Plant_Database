@@ -1,0 +1,23 @@
+.index-item
+{
+    text-align: center;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.index-item-names
+{
+    margin: 10px;
+}
+.index-item-name
+{
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.index-item-name:hover
+{
+    color: inherit;
+}

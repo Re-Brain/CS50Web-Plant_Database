@@ -1,0 +1,77 @@
+<div class="container">
+    <div id="button-container" class="m-3">
+        <div id="eng-button-container"></div>
+        <div id="thai-button-container"></div>
+    </div>
+
+    <div id="django-variable" data-django-variable="{{ venues }}"></div>
+   
+    <div class="row p-3 border row-display">
+        <div class="col">
+        <h5>Name</h5>
+        </div>
+        <div class="col">
+        <h5>Scientific Name</h5>
+        </div>
+        <div class="col">
+        <h5>Family Name</h5>
+        </div>
+        <div class="col">
+        <h5>Common Name</h5>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+    
+    {% for plant in venues %}
+        <div class="row p-3 border row-display">
+            <div class="col">
+                {{ plant.name }}
+            </div>
+            <div class="col">
+                {{ plant.scientificName }}
+            </div>
+            <div class="col">
+                {% for name in plant.familyNameList.all %}
+                    {{ name }}
+                    <br>
+                {% endfor %}
+            </div>
+            <div class="col">
+                {% if plant.commonNameList.all %}
+                    {% for name in plant.commonNameList.all %}
+                        {{ name }}{% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                {% else %}
+                    No family names available.
+                {% endif %}
+            </div>
+            <div class="col">
+                <button class="btn btn-primary btn-sm" id="dashboard">Edit</button>
+                <button class="btn btn-primary btn-sm" id="dashboard">Delete</button>
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="d-flex justify-content-center m-3">
+        <nav >
+            {% if venues.has_other_pages %}
+            <ul class="pagination">
+                {% if venues.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page1">&laquo;</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ venues.previous_page_number }}">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ venues.previous_page_number }}">{{ venues.previous_page_number }}</a></li>
+                {% endif %}
+                    <li class="page-item active"><a class="page-link" href="?page={{ venues.number }}">{{ venues.number }} </a></li>
+                {% if venues.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ venues.next_page_number }}">{{ venues.next_page_number }}</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ venues.next_page_number }}">Next</a></li>
+                    <li class="page-item"> <a class="page-link" href="?page={{ venues.paginator.num_pages }}">&raquo;</a></li>
+                {% endif %}
+            </ul>
+            {% endif %} 
+        </nav>
+    </div>   
+</div>
+
+

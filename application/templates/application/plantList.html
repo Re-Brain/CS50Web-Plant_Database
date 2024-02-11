@@ -2,9 +2,11 @@
 {% load static %}
 
 {% block extra_css %}
-
+    <link rel="stylesheet" href="{% static 'application/plantList.css'%}">
 {% endblock %}
 
 {% block body %}
-    <h1>PlantList</h1>
+    {% include "application/nav.html" %} 
+    {% include "application/list.html" %} 
+    {% include "application/nav.html" %} 
 {% endblock %}

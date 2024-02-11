@@ -1,0 +1,198 @@
+{% extends "application/layout.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'application/plant.css'%}">
+{% endblock %}
+
+{% block body %}
+    <div class="main-container data-container">
+        <div class="row">
+            <div class="data-item data-image">
+                {% if data.plantImageList.exists %}
+                    {% for image in data.plantImageList.all %}
+                        <img src="{{ image.image.url }}" alt="">
+                    {% endfor %}
+                {% else %}
+                    <p>No Image available</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row row-decoration">
+            <div class="col-3 col-title">
+                <p>Name</p>
+            </div>
+            <div class="col-9">
+                <div class="data-item">
+                    {% if data.name %}
+                        {{ data.name }}
+                    {% else %}
+                        <p>-</p>
+                    {% endif %}
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="row row-decoration">
+            <div class="col-3 col-title">
+                <p>Scientific Name</p>
+            </div>
+            <div class="col-9">
+                <div class="data-item">
+                    {% if data.scientificName %}
+                        {{ data.scientificName }}
+                    {% else %}
+                        <p>-</p>
+                    {% endif %}
+                </div>
+            </div>
+           
+        </div>
+
+        <div class="row row-decoration">
+            <div class="col-3 col-title">
+                <p>Family Name</p>
+            </div>
+            <div class="col-9">
+                <div class="data-item">
+                    {% if data.familyNameList.exists %}
+                        {% for name in data.familyNameList.all %}
+                            {{ name }}{% if not forloop.last %},{% endif %}               
+                        {% endfor %}
+                    {% else %}
+                        <p>-</p>
+                    {% endif %}
+                   
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-decoration">
+            <div class="col-3 col-title">
+                <p>Common Name</p>
+            </div>
+            <div class="col-9">
+                <div class="data-item">
+                    {% if data.commonNameList.exists %}
+                        {% for name in data.commonNameList.all %}
+                            {{ name }}{% if not forloop.last %},{% endif %}               
+                        {% endfor %}
+                    {% else %}
+                        <p>-</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-decoration">
+            <div class="col-3 col-title">
+                <p>Usages</p>
+            </div>
+            <div class="col-9">
+                <div class="data-item">
+                    {% if data.uses %}
+                        {{ data.uses }}
+                    {% else %}
+                        <p>-</p>
+                    {% endif %}
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-decoration">
+            <div class="col-3 col-title">
+                <p>Characteristics</p>
+            </div>
+            <div class="col-9">
+                <div class="data-item">
+                    {% if data.characteristic %}
+                        {{ data.characteristic }}
+                    {% else %}
+                        <p>-</p>
+                    {% endif %} 
+                </div>
+            </div>
+           
+        </div>
+
+        <div class="row row-decoration">
+            <div class="col-3 col-title">
+                <p>Habitats</p>
+            </div>
+            <div class="col-9">
+                <div class="data-item">
+                    {% if data.habitat %}
+                        {{ data.habitat }}
+                    {% else %}
+                        <p>-</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-decoration">
+            <div class="col-3 col-title">
+                <p>Care</p>
+            </div>
+            <div class="col-9">
+                <div class="data-item">
+                    {% if data.care %}
+                        {{ data.care }}
+                    {% else %}
+                        <p>-</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-decoration">
+            <div class="col-3 col-title">
+                <p>Location</p>
+            </div>
+            <div class="col-9">
+                <div class="data-item">
+                    {% if data.location %}
+                        {{ data.location }}
+                    {% else %}
+                        <p>-</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-decoration">
+            <div class="col-3 col-title">
+                <p>Reference</p>
+            </div>
+            <div class="col-9">
+                <div class="data-item">
+                    {% if data.references %}
+                        {{ data.references }}
+                    {% else %}
+                        <p>-</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-decoration">
+            <div class="col-3 col-title">
+                <p>QR Images</p>
+            </div>
+            <div class="col-9">
+                <div class="data-item">
+                    {% if data.qrImageList.exists %}
+                        {% for image in data.qrImageList.all %}
+                            <img src="{{ image.image.url }}" alt="">
+                        {% endfor %}
+                    {% else %}
+                        <p>No Image available</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

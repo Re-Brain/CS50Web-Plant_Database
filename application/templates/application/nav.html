@@ -1,0 +1,19 @@
+<div class="d-flex justify-content-center m-3">
+    <nav >
+        {% if venues.has_other_pages %}
+        <ul class="pagination">
+            {% if venues.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page1">&laquo;</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ venues.previous_page_number }}">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ venues.previous_page_number }}">{{ venues.previous_page_number }}</a></li>
+            {% endif %}
+                <li class="page-item active"><a class="page-link" href="?page={{ venues.number }}">{{ venues.number }} </a></li>
+            {% if venues.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ venues.next_page_number }}">{{ venues.next_page_number }}</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ venues.next_page_number }}">Next</a></li>
+                <li class="page-item"> <a class="page-link" href="?page={{ venues.paginator.num_pages }}">&raquo;</a></li>
+            {% endif %}
+        </ul>
+        {% endif %} 
+    </nav>
+</div>

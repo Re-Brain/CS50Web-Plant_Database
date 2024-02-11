@@ -2,9 +2,26 @@
 {% load static %}
 
 {% block extra_css %}
-
+    <link rel="stylesheet" href="{% static 'application/familyIndexList.css'%}">      
 {% endblock %}
 
 {% block body %}
+    <h1>ฐานข้อมูลพันธุ์ไม้</h1>
     <h1>FamilyIndexList</h1>
+
+    <div class="container">
+        {% for first_letter, family_name_list in organized_data.items %}
+            <div class="index-item">
+                <h2>{{ first_letter }}</h2>
+                <div class="index-item-names">
+                    {% for family_name in family_name_list %}
+                        <a href="{% url 'list' familyName=family_name %}"class="index-item-name">{{ family_name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+  
+
+
 {% endblock %}

@@ -1,0 +1,17 @@
+.row-display
+{  
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.plant
+{
+    text-decoration: none;
+    color: inherit;
+}
+
+.plant:hover,
+.plant:active {
+  color: inherit;
+}
