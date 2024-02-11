@@ -8,6 +8,17 @@
 {% block body %}
     <h1>ฐานข้อมูลพันธุ์ไม้</h1>
     <h1>Letter Index List</h1>
-
+    
+    <div class="container">
+        <div id="button-container" class="m-3 text-center" data-django-variable="{{ indexList }}">
+            <div id="eng-button-container"></div>
+            <div id="thai-button-container"></div>
+        </div>
+    </div>
+    
     {% include "application/list.html" %} 
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'application/letterIndexList.js' %}"></script>
 {% endblock %}

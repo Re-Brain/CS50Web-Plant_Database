@@ -15,24 +15,8 @@
     <div id="dashboard-view">
         <h1>Dashboard</h1>
 
-        <div id="dashboard-mode">
-            <button class="btn btn-primary btn-sm m-3" id="dashboard-plant-list">Plant List</button>
-            <button class="btn btn-primary btn-sm m-3" id="dashboard-letter-index-list">Letter Index List</button>
-            <button class="btn btn-primary btn-sm m-3" id="dashboard-family-index-list">Family Index List</button>    
-        </div>
-
-        <div id="plant-list-view">
-            {% include "application/adminPlantList.html" %} 
-        </div>
-
-        <div id="letter-index-list-view">
-            {% include "application/adminLetterIndexList.html" %} 
-        </div>
-
-        <div id="family-index-list-view">
-
-        </div>
-        
+        {% include "application/adminPlantList.html" %} 
+          
     </div>
 
     <div id="create-view">
@@ -43,5 +27,4 @@
 
 {% block script %}
     <script src="{% static 'application/dashboard.js' %}"></script>
-    <script src="{% static 'application/adminLetterIndexList.js' %}"></script>
 {% endblock %}

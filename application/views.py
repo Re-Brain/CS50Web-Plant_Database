@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator
 from .models import plant, familyName
+from django.db.models import Q
 import string
 
 # from .forms import plantFormTop
@@ -26,14 +27,31 @@ def plantList(request):
 
     return render(request, "application/plantList.html", {"venues" : venues })
 
-def letterIndexList(request):
-    allPlant = plant.objects.all()
+def letterIndexList(request, indexList):
+    if indexList == "all":
+        plants = plant.objects.all()
+    else:
+        charList = indexList.split('+')
+        sortedList = sorted(charList)
 
-    paginator = Paginator(allPlant, 20)
+        print(sortedList)
+
+        filter_condition = Q()
+        for word in sortedList:
+            filter_condition |= Q(Q(name__iregex=f'^{word}') | 
+                                Q(scientificName__iregex=f'^{word}') | 
+                                Q(familyNameList__familyName__iregex=f'^{word}') |
+                                Q(commonNameList__commonName__iregex=f'^{word}'))
+        
+        plants = plant.objects.filter(filter_condition).distinct()
+
+    paginator = Paginator(plants, 20)
     page_number = request.GET.get('page')
     venues = paginator.get_page(page_number)
 
-    return render(request, "application/letterIndexList.html", {"venues" : venues })
+    return render(request, "application/letterIndexList.html", {"venues" : venues , "indexList" : indexList})
+
+    
 
 def familyIndexList(request):
     allFamilyName = familyName.objects.all()
