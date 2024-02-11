@@ -25,7 +25,7 @@ def plantList(request):
     page_number = request.GET.get('page')
     venues = paginator.get_page(page_number)
 
-    return render(request, "application/plantList.html", {"venues" : venues })
+    return render(request, "application/plantList.html", {"venues" : venues})
 
 def letterIndexList(request, indexList):
     if indexList == "all":
@@ -103,12 +103,13 @@ def logout_user(request):
 def dashboard(request):
     if request.user.is_authenticated:
         allPlant = plant.objects.all()
+        admin = True
 
         paginator = Paginator(allPlant, 20)
         page_number = request.GET.get('page')
         venues = paginator.get_page(page_number)
 
-        return render(request, "application/dashboard.html", {"venues" : venues})
+        return render(request, "application/dashboard.html", {"venues" : venues , "admin" : admin})
     else:
         messages.success(request, ("Please login to use the dashboard"))
         return redirect('login')

@@ -21,6 +21,9 @@
             <div class="col">
             <h5>Common Name</h5>
             </div>
+            {% if admin %}
+            <div class="col"></div>
+            {% endif %}
         </div>
 
         {% for plant in venues %}
@@ -47,6 +50,12 @@
                             No family names available.
                         {% endif %}
                     </div>
+                    {% if admin %}
+                        <div class="col">
+                            <button class="btn btn-primary btn-sm">Edit</button>
+                            <button class="btn btn-primary btn-sm">Delete</button>
+                        </div>
+                    {% endif %}
                 </div>
             </a>           
         {% endfor %}

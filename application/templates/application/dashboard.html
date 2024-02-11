@@ -7,20 +7,31 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Mode</h1>
-    <button class="btn btn-primary btn-sm" id="dashboard">Delete & Edit</button>
-    <button class="btn btn-primary btn-sm" id="create">Create</button>
-    <a href="{% url 'logout' %}" class="btn btn-primary btn-sm" tabindex="-1" role="button" aria-disabled="true">Logout</a>
+    <div class="dashboard-option text-center">
+        <h1>Mode</h1>
 
-    <div id="dashboard-view">
-        <h1>Dashboard</h1>
-
-        {% include "application/adminPlantList.html" %} 
-          
+        <div class="m-3">
+            <button class="btn btn-primary btn-sm" id="dashboard">Delete & Edit</button>
+            <button class="btn btn-primary btn-sm" id="create">Create</button>
+            <a href="{% url 'logout' %}" class="btn btn-primary btn-sm" tabindex="-1" role="button" aria-disabled="true">Logout</a>
+        </div>
+       
+    </div>
+    
+    <div id="dashboard-list">
+        <div class="container">
+            <h1>Delete & Edit</h1>
+        </div>
+        
+        {% include "application/list.html" %} 
     </div>
 
-    <div id="create-view">
-        <h1>create</h1>
+    <div id="dashboard-create">
+        <div class="container">
+            <h1>Create</h1>
+        </div>
+
+        {% include "application/create.html" %} 
     </div>
 
 {% endblock %}
