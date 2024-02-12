@@ -7,28 +7,31 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Login</h1>
+    <div class="container">
+        <h1>Login</h1>
 
-    <br><br>
+        <br><br>
 
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-danger" role="alert">
-                {{ message }}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Username</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username">
             </div>
-        {% endfor %}
-    {% endif %}
-
-    <form action="" method="POST">
-        {% csrf_token %}
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Username</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username">
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" name="password">
-        </div>
-        <input type="submit" value="Submit" class="btn btn-secondary">
-    </form>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+            </div>
+            <input type="submit" value="Submit" class="btn btn-secondary">
+        </form>
+    </div>
+    
 {% endblock %}

@@ -72,11 +72,13 @@ def familyIndexList(request):
 def familyNameSort(request, familyName):
     allPlant = plant.objects.filter(familyNameList__familyName=familyName)
 
+    title = "Familyname: " + familyName
+
     paginator = Paginator(allPlant, 20)
     page_number = request.GET.get('page')
     venues = paginator.get_page(page_number)
 
-    return render(request, "application/result.html", {"venues" : venues })
+    return render(request, "application/result.html", {"venues" : venues , "title" : title})
 
 def login_user(request):
     if request.method == "POST":
