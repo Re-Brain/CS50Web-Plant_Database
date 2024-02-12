@@ -12,5 +12,6 @@ urlpatterns = [
     path("dashboard", views.dashboard, name="dashboard"),
     path("plant/<int:id>", views.plantData, name="plant"),
     path("letterIndexList/<str:indexList>", views.letterIndexList, name="letterIndexList"),
-    path("familyNameSort/<str:familyName>", views.familyNameSort, name="familyNameSort")
+    path("familyNameSort/<str:familyName>", views.familyNameSort, name="familyNameSort"),
+    path("deletePlant/<int:id>", views.deletePlant , name="deletePlant")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -4,8 +4,10 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator
+from django.http import JsonResponse, HttpResponseRedirect
 from .models import plant, familyName
 from django.db.models import Q
+from django.urls import reverse
 import string
 
 # from .forms import plantFormTop
@@ -119,5 +121,17 @@ def dashboard(request):
 def plantData(request, id):
     data = plant.objects.get(id=id)
     return render(request, "application/plant.html", {"data" : data })
+
+def deletePlant(request, id):
+    deletePlant = plant.objects.get(id=id)
+
+    if request.method == 'DELETE':
+        deletePlant.delete()
+        return HttpResponseRedirect(reverse("dashboard"))
+    
+    return JsonResponse({'message': 'Invalid request method.'}, status=400)
+
+
+
 
  
