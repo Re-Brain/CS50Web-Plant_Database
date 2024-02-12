@@ -55,7 +55,7 @@
                     </div>
                     {% if admin %}
                         <div class="col">
-                            <button class="btn btn-primary btn-sm edit">Edit</button>
+                            <button class="btn btn-primary btn-sm edit" onclick="editPlant(event, '{{ plant.id }}')">Edit</button>
                             <button class="btn btn-primary btn-sm delete" onclick="deletePlant(event, '{{ plant.id }}')">Delete</button>
                         </div>
                     {% endif %}

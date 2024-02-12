@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+import os
 
 # Create your models here.
 class familyName(models.Model):
@@ -16,9 +17,15 @@ class commonName(models.Model):
     
 class qrImage(models.Model):
     image = models.ImageField(null=True, blank=True, upload_to="qr/")
+
+    def __str__(self):
+        return os.path.basename(self.image.name)
     
 class plantImage(models.Model):
     image = models.ImageField(null=True, blank=True, upload_to="plant/")
+
+    def __str__(self):
+        return os.path.basename(self.image.name)
     
 class plant(models.Model):
     name = models.CharField(max_length=100)

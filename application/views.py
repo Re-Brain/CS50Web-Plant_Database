@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import JsonResponse, HttpResponseRedirect
-from .models import plant, familyName
+from .models import plant, familyName, plantImage, qrImage
 from django.db.models import Q
 from django.urls import reverse
 import string
@@ -129,6 +129,31 @@ def deletePlant(request, id):
         deletePlant.delete()
         return HttpResponseRedirect(reverse("dashboard"))
     
+    return JsonResponse({'message': 'Invalid request method.'}, status=400)
+
+def editPlant(request, id):
+    editPlant = plant.objects.get(id=id)
+    edit = True
+    title = "Edit:"
+
+    return render(request, "application/edit.html", {"plant" : editPlant, "edit" : edit, "title" : title})
+
+def deleteImage(request, id):
+    deleteImage = plantImage.objects.get(id=id)
+
+    if request.method == 'DELETE':
+        deleteImage.delete()
+        return JsonResponse({'message': 'Image deleted successfully.'})
+
+    return JsonResponse({'message': 'Invalid request method.'}, status=400)
+
+def deleteQR(request, id):
+    deleteQR = qrImage.objects.get(id=id)
+
+    if request.method == 'DELETE':
+        deleteQR.delete()
+        return JsonResponse({'message': 'Image deleted successfully.'})
+
     return JsonResponse({'message': 'Invalid request method.'}, status=400)
 
 

@@ -5,6 +5,13 @@ function deletePlant(event, plantID)
     openPopup(plantID)
 }
 
+function editPlant(event, plantID)
+{
+    event.stopPropagation();
+    event.preventDefault();
+    window.location.href = "editPlant/" + plantID
+}
+
 function openPopup(plantID) {
     let popup = document.getElementById('customPopup');
     let confirm = document.getElementById('confirm')
