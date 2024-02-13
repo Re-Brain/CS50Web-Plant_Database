@@ -5,6 +5,13 @@
 {% endblock %}
 
 {% block body %}
+
+    {% if title %}
+        <div class="container">
+            <h1>{{ title }}</h1>
+        </div>
+    {% endif %}
+
     {% include "application/nav.html" %} 
 
     <div class="container" id="list">

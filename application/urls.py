@@ -17,4 +17,5 @@ urlpatterns = [
     path("editPlant/<int:id>", views.editPlant, name="editPlant"),
     path("deleteImage/<int:id>", views.deleteImage, name="deleteImage"),
     path("deleteQR/<int:id>", views.deleteQR, name="deleteQR"),
+    path("create", views.create, name="create")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

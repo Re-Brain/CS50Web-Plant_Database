@@ -10,95 +10,101 @@
         <h1>{{ title }}</h1>
     {% endif %}
     
-    <form action="" class="border p-3 mt-3">
+    <form action="{% url 'create' %}" class="border p-3 mt-3" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
+        
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Name</label>
-            <input type="text" class="form-control"aria-describedby="emailHelp" value="{{ plant.name }}">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-control" name="name" value="{{ plant.name }}" required>
         </div>
 
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Scientific Name</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ plant.scientificName }}">
+            <label class="form-label">Scientific Name</label>
+            <input type="text" class="form-control" name="scientific-name" value="{{ plant.scientificName }}" required>
         </div>
         
         <div class="mb-3 multipleName" id="familyName">
-            <label for="exampleInputEmail1" class="form-label">Family Name</label>
+            <label class="form-label">Family Name</label>
 
             {% if edit %}
                 {% if plant.familyNameList.exists%}
                     {% for name in plant.familyNameList.all %}
-                        <input type="text" class="form-control multipleInput" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ name }}">             
+                        <input type="text" class="form-control multipleInput" name="family-name" value="{{ name }}">             
                     {% endfor %}
                 {% else %}
-                    <input type="text" class="form-control multipleInput">  
+                    <input type="text" class="form-control multipleInput" name="family-name">  
                 {% endif %} 
             {% else %}
-                <input type="text" class="form-control multipleInput"> 
+                <input type="text" class="form-control multipleInput" name="family-name"> 
             {% endif %}
           
         </div>
 
         <div class="mb-3 button-container">
-            <button class="btn btn-secondary" onclick="addName(event, 'familyName', 'delete-family-name')">Add Name</button>
+            <button class="btn btn-secondary" onclick="addName(event, 'familyName', 'delete-family-name', 'family-name')">Add Name</button>
             <button class="btn btn-success ms-2" onclick="deleteName(event, 'familyName' , 'delete-family-name')" id="delete-family-name">Delete Name</button>
         </div>
 
         <div class="mb-3 multipleName" id="commonName">
-            <label for="exampleInputEmail1" class="form-label">Common Name</label>
+            <label class="form-label">Common Name</label>
 
             {% if edit %}
                 {% if plant.commonNameList.exists%}
                     {% for name in plant.commonNameList.all %}
-                        <input type="text" class="form-control multipleInput" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ name }}">             
+                        <input type="text" class="form-control multipleInput" name="common-name" value="{{ name }}">             
                     {% endfor %}
                 {% else %}
-                    <input type="text" class="form-control multipleInput">  
+                    <input type="text" class="form-control multipleInput" name="common-name">  
                 {% endif %} 
             {% else %}
-                <input type="text" class="form-control multipleInput"> 
+                <input type="text" class="form-control multipleInput" name="common-name"> 
             {% endif %}
            
         </div>
 
         <div class="mb-3 button-container">
-            <button class="btn btn-secondary" onclick="addName(event, 'commonName', 'delete-common-name')">Add Name</button>
+            <button class="btn btn-secondary" onclick="addName(event, 'commonName', 'delete-common-name', 'common-name')">Add Name</button>
             <button class="btn btn-success ms-2" onclick="deleteName(event, 'commonName' , 'delete-common-name')" id="delete-common-name">Delete Name</button>
         </div>
 
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Uses</label>
-            <textarea class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" rows="10" cols="50">{{ plant.uses }}</textarea>
+            <label class="form-label">Uses</label>
+            <textarea class="form-control" rows="10" cols="50" name="use">{{ plant.uses }}</textarea>
         </div>
 
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Characteristic</label>
-            <textarea type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" rows="10" cols="50">{{ plant.characteristic }}</textarea>
+            <label class="form-label">Characteristic</label>
+            <textarea type="text" class="form-control" rows="10" cols="50" name="characteristic">{{ plant.characteristic }}</textarea>
         </div>
 
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Distribution</label>
-            <textarea type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" rows="10" cols="50">{{ plant.distribution }}</textarea>
+            <label class="form-label">Distribution</label>
+            <textarea type="text" class="form-control" rows="10" cols="50" name="distribution">{{ plant.distribution }}</textarea>
         </div>
 
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Habitat</label>
-            <textarea type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" rows="10" cols="50">{{ plant.habitat }}</textarea>
+            <label class="form-label">Habitat</label>
+            <textarea type="text" class="form-control" rows="10" cols="50" name="habitat">{{ plant.habitat }}</textarea>
         </div>
 
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Location</label>
-            <textarea type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" rows="10" cols="50">{{ plant.location }}</textarea>
+            <label class="form-label">Care</label>
+            <textarea type="text" class="form-control" rows="10" cols="50" name="care">{{ plant.care }}</textarea>
         </div>
 
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Referenece</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ plant.references }}">
+            <label class="form-label">Location</label>
+            <textarea type="text" class="form-control" rows="10" cols="50" name="location">{{ plant.location }}</textarea>
         </div>
 
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">QR Images</label>
-            <input type="file" class="form-control" id="qr-input" aria-describedby="emailHelp" multiple onchange="displayFileNames('qr-container', 'qr-input')">
+            <label class="form-label">Referenece</label>
+            <input type="text" class="form-control" name="reference" value="{{ plant.references }}">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">QR Images</label>
+            <input type="file" class="form-control" name="qr-input" multiple onchange="displayFileNames('qr-container', 'qr-input')">
             <div class="container-file" id="qr-container">
                 {% if edit %}
                     {% for image in plant.qrImageList.all %}
@@ -113,8 +119,8 @@
         </div>
 
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Plant Images</label>
-            <input type="file" class="form-control" id="image-input" aria-describedby="emailHelp" multiple onchange="displayFileNames('image-container', 'image-input')">
+            <label class="form-label">Plant Images</label>
+            <input type="file" class="form-control" name="image-input" multiple onchange="displayFileNames('image-container', 'image-input')">
             <div class="container-file" id="image-container">
                 {% if edit %}
                     {% for image in plant.plantImageList.all %}
