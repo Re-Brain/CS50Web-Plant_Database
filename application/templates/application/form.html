@@ -104,34 +104,45 @@
 
         <div class="mb-3">
             <label class="form-label">QR Images</label>
-            <input type="file" class="form-control" name="qr-input" multiple onchange="displayFileNames('qr-container', 'qr-input')">
+            <input type="file" class="form-control" name="qr-input" id="qr-input" multiple onchange="displayFileNames('qr-container', 'qr-input')">
             <div class="container-file" id="qr-container">
                 {% if edit %}
                     {% for image in plant.qrImageList.all %}
-                        <div class="container-file-item qr-image-{{ image.id }}">
+                        <div class="container-file-item" id="qr-image-display-{{ image.id }}">
                             <p class="mt-1">{{ image }}</p>
-                            <button class="btn btn-primary btn-sm ms-1" onclick="deleteQR('{{ image.id }}')">delete</button>
+                            <button class="btn btn-primary btn-sm ms-1" 
+                            onclick="deleteImage('qr-image-info-{{ image.id }}', 'qr-image-display-{{ image.id }}')">delete</button>
                         </div>
                     {% endfor %}
                 {% endif %}
-            </div>
-          
+            </div>  
         </div>
 
         <div class="mb-3">
             <label class="form-label">Plant Images</label>
-            <input type="file" class="form-control" name="image-input" multiple onchange="displayFileNames('image-container', 'image-input')">
+            <input type="file" class="form-control" name="image-input" id="image-input" onchange="displayFileNames('image-container', 'image-input')">
             <div class="container-file" id="image-container">
                 {% if edit %}
                     {% for image in plant.plantImageList.all %}
-                        <div class="container-file-item plant-image-{{ image.id }}">
+                        <div class="container-file-item" id="plant-image-display-{{ image.id }}">
                             <p class="mt-1">{{ image }}</p>
-                            <button class="btn btn-primary btn-sm ms-1" onclick="deleteImage('{{ image.id }}')">delete</button>
+                            <button class="btn btn-primary btn-sm ms-1" 
+                            onclick="deleteImage('plant-image-info-{{ image.id }}' , 'plant-image-display-{{ image.id }}')">delete</button>
                         </div>
                     {% endfor %}
                 {% endif %}
             </div>
         </div>
+
+        {% if edit %}
+            {% for image in plant.qrImageList.all %}
+                <input type="hidden" name="qr-image-info" id="qr-image-info-{{ image.id }}" value="{{ image.id }}">
+            {% endfor %}
+
+            {% for image in plant.plantImageList.all %}
+                <input type="hidden" name="plant-image-info" id="plant-image-info-{{ image.id }}" value="{{ image.id }}">
+            {% endfor %}
+        {% endif %}
 
         <input type="submit" value="Edit" class="btn btn-secondary">
     </form>

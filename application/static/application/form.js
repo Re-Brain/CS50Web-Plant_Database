@@ -1,130 +1,14 @@
-// document.addEventListener('DOMContentLoaded', function() {
-//     document.querySelector('#compose-form')
-//     .addEventListener("submit", create)
-// })
-
-// function create(event)
-// {
-//     event.preventDefault()
-
-//     let fromData = new FormData(this)
-
-//     // let familyNameList = []
-//     // let commonNameList  = []
-//     // let qrImageList = []
-//     // let plantImageList = []
-
-//     // let name = document.getElementById("name").value
-//     // let scientificName = document.getElementById("scientific-name").value
-//     // let familyNames = document.querySelectorAll(".family-name")
-//     // let commonNames = document.querySelectorAll(".common-name")
-//     // let use = document.getElementById("use").value
-//     // let characteristic = document.getElementById("characteristic").value
-//     // let distribution = document.getElementById("distribution").value
-//     // let habitat = document.getElementById("habitat").value
-//     // let location = document.getElementById("location").value
-//     // let reference = document.getElementById("reference").value
-//     // let qrImages = document.getElementById("qr-input")
-//     // let plantImages = document.getElementById("image-input")
-
-//     // const files = plantImages.files
-
-//     // const promises = Array.from(files).map(file => readAndSendFile(file));
-
-//     // for(let i = 0; i < familyNames.length; i++)
-//     // {
-//     //     familyNameList.push(familyNames[i].value)
-//     // }
-
-//     // for(let i = 0; i < commonNames.length; i++)
-//     // {
-//     //     commonNameList.push(commonNames[i].value)
-//     // }
-
-//     // for(let i = 0; i < qrImages.files.length; i++)
-//     // {
-//     //     qrImageList.push(qrImages.files[i])
-//     // }
-
-//     // for(let i = 0; i < plantImages.files.length; i++)
-//     // {
-//     //     plantImageList.push(plantImages.files[i])
-//     // }
-
-//     // console.log(plantImageList)
-
-//     fetch('create', {
-//         method : "POST",
-//         body: FormData
-//         // JSON.stringify({
-//         //     name : name,
-//         //     scientificName : scientificName,
-//         //     familyNameList : familyNameList,
-//         //     commonNameList : commonNameList,
-//         //     use : use,
-//         //     characteristic : characteristic,
-//         //     distribution : distribution,
-//         //     habitat : habitat,
-//         //     location : location,
-//         //     reference : reference,
-//         //     qrImageList : qrImageList,
-//         //     plantImageList : plantImageList
-//         // })
-//     })
-//     .then(response => {
-//         if (response.ok) {
-//             console.log('Item create successfully');
-//         } else {
-//             console.error('Failed to delete item');
-//         }
-//     })
-
-// }
-
-function deleteImage(id)
+function deleteImage(dataBack, dataFront)
 {
-    let container = document.querySelector(`.plant-image-${id}`)
-    let parent = container.parentNode
-    parent.removeChild(container)
+    console.log(dataBack, dataFront)
+    
+    let frontImage = document.getElementById(dataFront)
+    let frontImageParent = frontImage.parentNode
+    frontImageParent.removeChild(frontImage)
 
-    fetch(`deleteImage/${id}`, {
-        method : 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrfToken,
-        },
-    })
-    .then(response => {
-        if (response.ok) {
-            console.log('Item deleted successfully');
-            location.reload();
-        } else {
-            console.error('Failed to delete item');
-        }
-    })
-}
-
-function deleteQR(id)
-{
-    let container = document.querySelector(`.qr-image-${id}`)
-
-    let parent = container.parentNode
-    parent.removeChild(container)
-
-    fetch(`deleteQR/${id}`, {
-        method : 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrfToken,
-        },
-    })
-    .then(response => {
-        if (response.ok) {
-            console.log('Item deleted successfully');
-        } else {
-            console.error('Failed to delete item');
-        }
-    })
+    let backImage = document.getElementById(dataBack)
+    let backImageParent = backImage.parentNode
+    backImageParent.removeChild(backImage)
 }
 
 function getCookie(name) {
