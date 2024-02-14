@@ -1,7 +1,5 @@
 function deleteImage(dataBack, dataFront)
 {
-    console.log(dataBack, dataFront)
-    
     let frontImage = document.getElementById(dataFront)
     let frontImageParent = frontImage.parentNode
     frontImageParent.removeChild(frontImage)
@@ -9,11 +7,6 @@ function deleteImage(dataBack, dataFront)
     let backImage = document.getElementById(dataBack)
     let backImageParent = backImage.parentNode
     backImageParent.removeChild(backImage)
-}
-
-function getCookie(name) {
-    const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
-    return cookieValue ? cookieValue.pop() : '';
 }
 
 function addName(event, inputContainer, deleteButtonID, name)
@@ -31,7 +24,7 @@ function addName(event, inputContainer, deleteButtonID, name)
     let numberOfChildren = container.children.length
     console.log(numberOfChildren)
 
-    if (numberOfChildren > 2)
+    if (numberOfChildren >= 2)
     {
         let deleteName = document.getElementById(deleteButtonID)
         deleteName.style.display = 'block'
@@ -43,8 +36,8 @@ function deleteName(event, inputContainer, deleteButtonID)
     event.preventDefault();
 
     let container = document.getElementById(inputContainer)
-
-    let lastChild = container.lastChild
+    let lastChild = container.lastElementChild
+    
     container.removeChild(lastChild)
 
     let numberOfChildren = container.children.length
@@ -55,6 +48,12 @@ function deleteName(event, inputContainer, deleteButtonID)
         let deleteName = document.getElementById(deleteButtonID)
         deleteName.style.display = 'none'
     }
+    
+}
+
+function hideItem(item)
+{
+    
 }
 
 function displayFileNames(containerElement, inputElement)

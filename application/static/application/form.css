@@ -28,16 +28,6 @@ textarea
     margin-top: 0;
 }
 
-#delete-common-name
-{
-    display: none;
-}
-
-#delete-family-name
-{
-    display: none;
-}
-
 .button-container
 {
     display: flex;

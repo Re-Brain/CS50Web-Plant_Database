@@ -9,7 +9,10 @@ from .models import plant, familyName, plantImage, qrImage, commonName
 from django.db.models import Q
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 import json
+import os
 import string
 
 # from .forms import plantFormTop
@@ -55,7 +58,6 @@ def letterIndexList(request, indexList):
 
     return render(request, "application/letterIndexList.html", {"venues" : venues , "indexList" : indexList})
 
-    
 
 def familyIndexList(request):
     allFamilyName = familyName.objects.all()
@@ -125,39 +127,143 @@ def plantData(request, id):
     data = plant.objects.get(id=id)
     return render(request, "application/plant.html", {"data" : data })
 
+@receiver(post_delete, sender=plant)
+def delete_plant_media_files(sender, instance, **kwargs):
+    for qr_image in instance.qrImageList.all():
+        print(qr_image.image)
+        if qr_image.image:
+            # Assuming 'media/' is the root directory for your media files
+            file_path = os.path.join('media/', str(qr_image.image))
+            if os.path.exists(file_path):
+                os.remove(file_path)
+
+    for plant_image in instance.plantImageList.all():
+        print(plant_image.image)
+        if plant_image.image:
+            file_path = os.path.join('media/', str(plant_image.image))
+            if os.path.exists(file_path):
+                os.remove(file_path)
+
 def deletePlant(request, id):
     deletePlant = plant.objects.get(id=id)
 
     if request.method == 'DELETE':
+        familyNameCommonNameChecker()
+
+        for image in deletePlant.qrImageList.all():
+            os.remove(image.image.path)
+
+        for image in deletePlant.plantImageList.all():
+            os.remove(image.image.path)
+
         deletePlant.delete()
+
         return HttpResponseRedirect(reverse("dashboard"))
     
     return JsonResponse({'message': 'Invalid request method.'}, status=400)
 
+def familyNameCommonNameChecker():
+    allFamilyName = familyName.objects.all()
+    allCommonName = commonName.objects.all()
+    
+    orphansFamily = allFamilyName.filter(famName__isnull=True)
+    orphansCommon = allCommonName.filter(comName__isnull=True)
+
+    orphansFamily.delete()
+    orphansCommon.delete()
+    
+@csrf_exempt
 def editPlant(request, id):
     editPlant = plant.objects.get(id=id)
     edit = True
     title = "Edit:"
 
+    if request.method == "POST":
+        plantID = request.POST.get('id')
+        name = request.POST.get('name')
+        scientificName = request.POST.get('scientific-name')
+        familyNames = request.POST.getlist('family-name')
+        commonNames = request.POST.getlist('common-name')
+        use = request.POST.get('use')
+        characteristic = request.POST.get('characteristic')
+        distribution = request.POST.get('distribution')
+        habitat = request.POST.get('habitat')
+        care = request.POST.get('care')
+        location = request.POST.get('location')
+        reference = request.POST.get('reference')
+        qrImages = request.FILES.getlist('qr-input')
+        plantImages = request.FILES.getlist('image-input')
+        existQRImages = request.POST.getlist('qr-image-info')
+        existPlantImages = request.POST.getlist('plant-image-info')
+
+        existPlant = plant.objects.get(id=plantID)
+        existPlant.name = name
+        existPlant.scientificName = scientificName
+        existPlant.uses = use
+        existPlant.characteristic = characteristic
+        existPlant.distribution = distribution
+        existPlant.habitat = habitat
+        existPlant.care = care
+        existPlant.location = location
+        existPlant.references = reference
+
+        # Clear the existed item in familyNames before adding new values
+        for name in existPlant.familyNameList.all():
+            if name.familyName not in familyNames:
+                name_to_remove = familyName.objects.get(familyName=name.familyName)
+                existPlant.familyNameList.remove(name_to_remove)
+                relate_instance_count = plant.objects.filter(familyNameList__familyName=name.familyName).count()
+                if relate_instance_count == 0:
+                    name_to_remove.delete()
+
+        for name in familyNames:
+            if name != '':
+                nameInstance, create = familyName.objects.get_or_create(familyName=name)
+                existPlant.familyNameList.add(nameInstance)
+        
+        # Clear the existed item in commonNames before adding new values
+        for name in existPlant.commonNameList.all():
+            if name.commonName not in commonNames:
+                name_to_remove = commonName.objects.get(commonName=name.commonName)
+                existPlant.commonNameList.remove(name_to_remove)
+                relate_instance_count = plant.objects.filter(commonNameList__commonName=name.commonName).count()
+                if relate_instance_count == 0:
+                    name_to_remove.delete()
+
+        for name in commonNames:
+            if name != '':
+                nameInstance, create = commonName.objects.get_or_create(commonName=name)
+                existPlant.commonNameList.add(nameInstance)
+
+        # Clear the existed item in qrImageList that delete by user before adding new values
+        for image in existPlant.qrImageList.all():
+            if str(image.id) not in existQRImages:
+                image_to_remove = qrImage.objects.get(id=image.id)
+                existPlant.qrImageList.remove(image_to_remove)
+                os.remove(image_to_remove.image.path)
+                image_to_remove.delete()
+                existPlant.save()
+
+        for image in qrImages:
+            imageInstance = qrImage.objects.create(image=image)
+            existPlant.qrImageList.add(imageInstance)
+
+        # Clear the existed item in plantImageList that delete by user before adding new values
+        for image in existPlant.plantImageList.all():
+            if str(image.id) not in existPlantImages:
+                image_to_remove = plantImage.objects.get(id=image.id)
+                existPlant.plantImageList.remove(image_to_remove)
+                os.remove(image_to_remove.image.path)
+                image_to_remove.delete()
+                existPlant.save()
+
+        for image in plantImages:
+            imageInstance = plantImage.objects.create(image=image)
+            existPlant.plantImageList.add(imageInstance)
+
+        return render(request, "application/edit.html", {"plant" : existPlant, "edit" : edit, "title" : title})
+
     return render(request, "application/edit.html", {"plant" : editPlant, "edit" : edit, "title" : title})
-
-def deleteImage(request, id):
-    deleteImage = plantImage.objects.get(id=id)
-
-    if request.method == 'DELETE':
-        deleteImage.delete()
-        return JsonResponse({'message': 'Image deleted successfully.'})
-
-    return JsonResponse({'message': 'Invalid request method.'}, status=400)
-
-def deleteQR(request, id):
-    deleteQR = qrImage.objects.get(id=id)
-
-    if request.method == 'DELETE':
-        deleteQR.delete()
-        return JsonResponse({'message': 'Image deleted successfully.'})
-
-    return JsonResponse({'message': 'Invalid request method.'}, status=400)
 
 @csrf_exempt
 def create(request):
