@@ -70,10 +70,13 @@
         </header>
 
         <main>
-            <div id="page-container">
-                {% block body %}
-                {% endblock %}
+            <div class="container">
+                <div id="page-container">
+                    {% block body %}
+                    {% endblock %}
+                </div>
             </div>
+           
         </main>
        
         <script src="{% static 'application/bootstrap/js/bootstrap.js'%}"></script>

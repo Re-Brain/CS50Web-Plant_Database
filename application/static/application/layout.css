@@ -151,11 +151,12 @@ table {
     box-shadow: 0 0 5px rgba(0, 0, 0, 3);
     background-color: #4CAF50;
 }
+
 #page-container
 {
     margin: 0 auto;
     margin-top: 20px;
-    width: 90%;
+    width: 80%;
 }
 
 
