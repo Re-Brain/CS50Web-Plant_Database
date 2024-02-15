@@ -2,6 +2,7 @@
     
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'application/list.css'%}">
+    <link rel="stylesheet" href="{% static 'application/nav.css'%}">
 {% endblock %}
 
 {% block body %}
@@ -15,55 +16,55 @@
     {% include "application/nav.html" %} 
 
     <div class="container" id="list">
-        <div class="row p-3 border row-display mt-3 mb-3">
-            <div class="col">
-            <h5>Name</h5>
+        <div class="row p-3 row-display mt-3 mb-3">
+            <div class="col list-title-container">
+                <p>Name</p>
             </div>
-            <div class="col">
-            <h5>Scientific Name</h5>
+            <div class="col list-title-container">
+                <p>Scientific Name</p>
             </div>
-            <div class="col">
-            <h5>Family Name</h5>
+            <div class="col list-title-container">
+                <p>Family Name</p>
             </div>
-            <div class="col">
-            <h5>Common Name</h5>
+            <div class="col list-title-container">
+                <p>Common Name</p>
             </div>
             {% if admin %}
-            <div class="col"></div>
+                <div class="col"></div>
             {% endif %}
         </div>
 
         {% for plant in venues %}
             <a href="{% url 'plant' id=plant.id %}" class="plant">
-                <div class="row p-3 border row-display mt-3 mb-3">
-                    <div class="col">
-                        {{ plant.name }}
+                <div class="row p-3 row-display mt-3 mb-3">
+                    <div class="col list-item-container">
+                        <p>{{ plant.name }}</p>
                     </div>
-                    <div class="col">
-                        {{ plant.scientificName }}
+                    <div class="col list-item-container">
+                        <p>{{ plant.scientificName }}</p> 
                     </div>
-                    <div class="col">
+                    <div class="col list-item-container">
                         {% if plant.familyNameList.exists %}
-                            {% for name in plant.familyNameList.all %}
-                                {{ name }}{% if not forloop.last %},{% endif %}               
+                            {% for name in plant.familyNameList.all|slice:":2" %}
+                                <p>{{ name }}{% if not forloop.last %},{% endif %}</p>           
                             {% endfor %}
                         {% else %}
                             <p>-</p>
                         {% endif %}
                     </div>
-                    <div class="col">
+                    <div class="col list-item-container">
                         {% if plant.commonNameList.exists %}
-                            {% for name in plant.commonNameList.all %}
-                                {{ name }}{% if not forloop.last %},{% endif %}               
+                            {% for name in plant.commonNameList.all|slice:":2" %}
+                                <p>{{ name }}{% if not forloop.last %},{% endif %}</p>          
                             {% endfor %}
                         {% else %}
                             <p>-</p>
                         {% endif %}
                     </div>
                     {% if admin %}
-                        <div class="col">
-                            <button class="btn btn-primary btn-sm edit" onclick="editPlant(event, '{{ plant.id }}')">Edit</button>
-                            <button class="btn btn-primary btn-sm delete" onclick="deletePlant(event, '{{ plant.id }}')">Delete</button>
+                        <div class="col list-item-container">
+                            <button class="btn btn-primary btn-sm edit-button" onclick="editPlant(event, '{{ plant.id }}')">Edit</button>
+                            <button class="btn btn-primary btn-sm delete-button" onclick="deletePlant(event, '{{ plant.id }}')">Delete</button>
                         </div>
                     {% endif %}
                 </div> 

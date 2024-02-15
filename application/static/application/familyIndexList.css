@@ -1,23 +1,45 @@
+.index-container
+{
+    padding: 20px;
+}
+
 .index-item
 {
     text-align: center;
-    margin: 20px;
     padding: 20px;
+    background: #4CAF50;
+    border-radius: 20px;
     border: 1px solid black;
-    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+}
+
+.index-item h2
+{
+    font-size: 35px;
+    color: #fff;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 1);
 }
 
 .index-item-names
 {
-    margin: 10px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
-.index-item-name
+
+.index-item-name 
 {
     text-transform: uppercase;
     text-decoration: none;
+    font-size: 20px;
+    color: #fff;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 1);
+    margin: 10px;
 }
 
 .index-item-name:hover
 {
-    color: inherit;
+    color: #fff;
 }
+

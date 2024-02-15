@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block body %}
-    <div class="main-container data-container">
+    <div class="data-container">
         <div class="row">
             <div class="data-item data-image">
                 {% if data.plantImageList.exists %}
@@ -14,7 +14,7 @@
                         <img src="{{ image.image.url }}" alt="">
                     {% endfor %}
                 {% else %}
-                    <p>No Image available</p>
+                    <p class="plant-image">No Image available</p>
                 {% endif %}
             </div>
         </div>

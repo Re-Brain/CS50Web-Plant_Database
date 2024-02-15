@@ -2,17 +2,16 @@
 {% load static %}
     
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'application/dashboard.css'%}">
+    <link rel="stylesheet" href="{% static 'application/admin.css'%}">
 {% endblock %}
 
 {% block body %}
-    <div class="dashboard-option text-center">
+    <div class="dashboard-option">
         <h1>Mode</h1>
-
         <div class="m-3 mode-container">
-            <a href="{% url 'dashboard' %}" class="btn btn-primary btn-sm m-1" id="dashboard">Delete & Edit</a>
-            <a href="{% url 'create' %}" class="btn btn-primary btn-sm m-1" id="create">Create</a>
-            <a href="{% url 'logout' %}" class="btn btn-primary btn-sm m-1">Logout</a>
+            <a href="{% url 'dashboard' %}" class="btn btn-primary btn-sm m-1 button-admin" id="dashboard">Delete & Edit</a>
+            <a href="{% url 'create' %}" class="btn btn-primary btn-sm m-1 button-admin" id="create">Create</a>
+            <a href="{% url 'logout' %}" class="btn btn-primary btn-sm m-1 button-admin-logout">Logout</a>
         </div>
     </div>
 

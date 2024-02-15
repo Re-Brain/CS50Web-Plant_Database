@@ -1,0 +1,34 @@
+.btn
+{
+   width: 40px;
+   height: 40px;
+   border-radius: 50%;
+   text-align: center;
+   border-radius: 20px;
+   border: 1px solid black;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+   color: #fff;
+   text-shadow: 1px 1px 3px rgba(0, 0, 0, 1);
+}
+
+.btn-primary
+{
+   background-color: #4CAF50;
+}
+
+.btn-primary:hover
+{
+   border: 1px solid black;
+   background-color: #4CAF50;
+}
+
+.btn-success
+{
+    background-color: #006400;
+}
+
+.btn-success:hover
+{
+    border: 1px solid black;
+    background-color: #006400;
+}

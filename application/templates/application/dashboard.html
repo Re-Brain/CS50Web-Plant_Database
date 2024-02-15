@@ -4,8 +4,8 @@
     <div class="container">
         <h1>{{ title }}</h1>
         <form action="{% url 'adminSearch' %}" method="POST">
-            <input type="text" name="input">
-            <input type="submit" value="Search">
+            <input class="form-control" type="text" name="input">
+            <input class="btn-primary btn-sm m-1" type="submit" value="Search">
             <input type="hidden" name="admin" value="admin">
         </form>
     </div>

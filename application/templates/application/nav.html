@@ -1,17 +1,17 @@
-<div class="d-flex justify-content-center p-3">
-    <nav >
+<div class="d-flex justify-content-center pt-3 pb-3">
+    <nav>
         {% if venues.has_other_pages %}
         <ul class="pagination">
             {% if venues.has_previous %}
-                <li class="page-item"><a class="page-link" href="?page1">&laquo;</a></li>
-                <li class="page-item"><a class="page-link" href="?page={{ venues.previous_page_number }}">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="?page={{ venues.previous_page_number }}">{{ venues.previous_page_number }}</a></li>
+                <li class="page-link"><a href="?page1"><i class="icon-page fa-solid fa-angles-left"></i></a></li>
+                <li class="page-link"><a href="?page={{ venues.previous_page_number }}"><i class="icon-page fa-solid fa-angle-left"></i></a></li>
+                <li class="page-link"><a href="?page={{ venues.previous_page_number }}"><p>{{ venues.previous_page_number }}</p></a></li>
             {% endif %}
-                <li class="page-item active"><a class="page-link" href="?page={{ venues.number }}">{{ venues.number }} </a></li>
+                <li class="page-link active-item"><a href="?page={{ venues.number }}"><p>{{ venues.number }}</p></a></li>
             {% if venues.has_next %}
-                <li class="page-item"><a class="page-link" href="?page={{ venues.next_page_number }}">{{ venues.next_page_number }}</a></li>
-                <li class="page-item"><a class="page-link" href="?page={{ venues.next_page_number }}">Next</a></li>
-                <li class="page-item"> <a class="page-link" href="?page={{ venues.paginator.num_pages }}">&raquo;</a></li>
+                <li class="page-link"><a href="?page={{ venues.next_page_number }}"><p>{{ venues.next_page_number }}</p></a></li>
+                <li class="page-link"><a href="?page={{ venues.next_page_number }}"><i class="icon-page fa-solid fa-angle-right"></i></a></li>
+                <li class="page-link"><a href="?page={{ venues.paginator.num_pages }}"><i class="icon-page fa-solid fa-angles-right"></i></a></li>
             {% endif %}
         </ul>
         {% endif %} 
