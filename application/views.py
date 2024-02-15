@@ -157,45 +157,50 @@ def familyNameCommonNameChecker():
 
 @csrf_exempt
 def search(request):
+    input = request.POST.get('input')
 
-    if 'search' in request.POST:
-        print("normal")
-        request.session['input'] = request.POST.get('search')
+    if not input:
+        input = None
     
-    elif 'adminSearch' in request.POST:
-        print("admin")
-        request.session['input'] = request.POST.get('adminSearch')
-        request.session['admin'] = request.POST.get('admin')
-    else:
-        request.session['advanceSearch-name'] = request.POST.get('advanceSearch-name')
-        request.session['advanceSearch-scientific-name'] = request.POST.get('aadvanceSearch-scientific-name')
-        request.session['advanceSearch-family-name'] = request.POST.get('advanceSearch-family-name')
-        request.session['advanceSearch-common-name'] = request.POST.get('advanceSearch-common-name')
-
-    return HttpResponseRedirect(reverse('searchResult'))
-
-def searchResult(request):
-       
-    if request.session.get('input'):
-        input = request.session.get('input')
-        print("inputResult")
-
-        filteredPlant = plant.objects.filter(
+    return redirect('searchResult', input=input)
+ 
+def searchResult(request, input):
+    
+    filteredPlant = plant.objects.filter(
         Q(name__icontains=input) | Q(scientificName__icontains=input)
         | Q(familyNameList__familyName__icontains=input) | Q(commonNameList__commonName__icontains=input)
         ).distinct()
+    
+    paginator = Paginator(filteredPlant, 20)
+    page_number = request.GET.get('page')
+    venues = paginator.get_page(page_number)
 
-    elif (request.session.get('advanceSearch-name') and request.session.get['advanceSearch-scientific-name'] and 
-        request.session.get['advanceSearch-family-name'] and request.session.get['advanceSearch-common-name']):
+    return render(request, "application/result.html", {"venues" : venues})
 
-        print("inputAdvance")
+@csrf_exempt
+def advanceSearch(request):
+    name = request.POST.get('name')
+    scientificName = request.POST.get('scientific-name')
+    familyName = request.POST.get('family-name')
+    commonName = request.POST.get('common-name')
 
-        name = request.seesion.get('advanceSearch-name')
-        scientificName = request.session.get['advanceSearch-scientific-name']
-        familyName = request.session.get['advanceSearch-family-name']
-        commonName = request.session.get['advanceSearch-common-name']
+    if not name:
+        name = None
 
-        filteredPlant = plant.objects.filter(
+    if not scientificName:
+        scientificName = None
+
+    if not familyName:
+        familyName = None
+    
+    if not commonName:
+        commonName = None
+
+    return redirect('advanceSearchResult', name=name, scientificName=scientificName,
+                    familyName=familyName, commonName=commonName)
+
+def advanceSearchResult(request, name, scientificName, familyName, commonName):
+    filteredPlant = plant.objects.filter(
         Q(name__icontains=name) | Q(scientificName__icontains=scientificName)
         | Q(familyNameList__familyName__icontains=familyName) | Q(commonNameList__commonName__icontains=commonName)
         ).distinct()
@@ -204,12 +209,65 @@ def searchResult(request):
     page_number = request.GET.get('page')
     venues = paginator.get_page(page_number)
 
-    if request.session.get('admin') == 'admin':
-        admin = True
-        return render(request, "application/adminResult.html", {"venues" : venues, "admin" : admin})
-    
-    print("normalResult")
     return render(request, "application/result.html", {"venues" : venues})
+
+@login_required
+@csrf_exempt
+def adminSearch(request):
+    input = request.POST.get('input')
+
+    if not input:
+        input = None
+        
+    return redirect('adminSearchResult', input=input)
+
+def adminSearchResult(request, input):
+    filteredPlant = plant.objects.filter(
+        Q(name__icontains=input) | Q(scientificName__icontains=input)
+        | Q(familyNameList__familyName__icontains=input) | Q(commonNameList__commonName__icontains=input)
+        ).distinct()
+    
+    paginator = Paginator(filteredPlant, 20)
+    page_number = request.GET.get('page')
+    venues = paginator.get_page(page_number)
+
+    return render(request, "application/adminResult.html", {"venues" : venues, "admin" : True})
+
+
+# def searchResult(request):
+
+#     for key, value in request.POST.items():
+#         print(f"Post Key: {key}, Value: {value}")
+       
+#     if request.POST.get('input'):
+#         input = request.POST.get('input')
+#         print("inputResult")
+
+#     elif (request.session.get('advanceSearch-name') and request.session.get('advanceSearch-scientific-name') and 
+#         request.session.get('advanceSearch-family-name') and request.session.get('advanceSearch-common-name')):
+
+#         print("inputAdvance")
+
+#         name = request.session.get('advanceSearch-name')
+#         scientificName = request.session.get('advanceSearch-scientific-name')
+#         familyName = request.session.get('advanceSearch-family-name')
+#         commonName = request.session.get('advanceSearch-common-name')
+
+#         filteredPlant = plant.objects.filter(
+#         Q(name__icontains=name) | Q(scientificName__icontains=scientificName)
+#         | Q(familyNameList__familyName__icontains=familyName) | Q(commonNameList__commonName__icontains=commonName)
+#         ).distinct()
+    
+#     paginator = Paginator(filteredPlant, 20)
+#     page_number = request.GET.get('page')
+#     venues = paginator.get_page(page_number)
+
+#     if request.session.get('admin') == 'admin':
+#         admin = True
+#         return render(request, "application/adminResult.html", {"venues" : venues, "admin" : admin})
+    
+#     print("normalResult")
+#     return render(request, "application/result.html", {"venues" : venues})
 
 @csrf_exempt
 def editPlant(request, id):

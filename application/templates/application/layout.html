@@ -15,40 +15,38 @@
 </head>
 <body>
     <div class="home-container">
-        <header>
-            <div class="layout-container">
+        <header id="menu-container">
+            <div id="menu-block">
                 <h1>ฐานข้อมูลความหลากหลายพรรณไม้ ณ อุทยานการศึกษารัชมังคลาภิเษก มสธ.</h1>
-
-                <div class="menu border border-dark">
-                    <ul class="page">
-                        <li class="page-item">
-                            <a href="{% url 'index' %}" class="page-item-link"><h2>Home</h2></a>
+                <div class="menu-url-container">
+                    <ul class="menu-url">
+                        <li class="menu-item">
+                            <a href="{% url 'index' %}" class="menu-item-link"><h2>Home</h2></a>
                         </li>
-                        <li class="page-item">
-                            <a href="{% url 'plantList' %}" class="page-item-link"><h2>Plant List</h2></a>
+                        <li class="menu-item">
+                            <a href="{% url 'plantList' %}" class="menu-item-link"><h2>Plant List</h2></a>
                         </li>
-                        <li class="page-item">
-                            <a href="{% url 'letterIndexList' indexList='all' %}" class="page-item-link"><h2>Letter Index List</h2></a>
+                        <li class="menu-item">
+                            <a href="{% url 'letterIndexList' indexList='all' %}" class="menu-item-link"><h2>Letter Index List</h2></a>
                         </li>
-                        <li class="page-item">
-                            <a href="{% url 'familyIndexList' %}" class="page-item-link"><h2>Family Index List</h2></a>
-                        </li>
-                        <li class="page-item-search border border-dark">
-                             <form action="{% url 'search' %}" method="POST">
-                                <input type="text" name="search">
-                                <input type="submit" value="search">
-                            </form>
+                        <li class="menu-item">
+                            <a href="{% url 'familyIndexList' %}" class="menu-item-link"><h2>Family Index List</h2></a>
                         </li>
                         {% if user.is_authenticated %}
-                            <li class="page-item">
-                                <a href="{% url 'dashboard' %}" class="page-item-link"><h2>Staff_In</h2></a>
+                            <li class="menu-item">
+                                <a href="{% url 'dashboard' %}" class="menu-item-link"><h2>Staff_In</h2></a>
                             </li>
                         {% else %}
-                            <li class="page-item">
-                                <a href="{% url 'login' %}" class="page-item-link"><h2>Staff_Out</h2></a>
+                            <li class="menu-item">
+                                <a href="{% url 'login' %}" class="menu-item-link"><h2>Staff_Out</h2></a>
                             </li>
                         {% endif %}
-                       
+                        <li class="menu-item-search">
+                             <form action="{% url 'search' %}" method="POST">
+                                <input type="text" class="form-control" name="input">
+                                <input type="submit" class="btn btn-success" value="Search">
+                            </form>
+                        </li>   
                     </ul>
                 </div>
 
@@ -58,7 +56,7 @@
         </header>
 
         <main>
-            <div class="main-container">
+            <div id="page-container">
                 {% block body %}
                 {% endblock %}
             </div>

@@ -15,7 +15,16 @@ urlpatterns = [
     path("familyNameSort/<str:familyName>", views.familyNameSort, name="familyNameSort"),
     path("deletePlant/<int:id>", views.deletePlant , name="deletePlant"),
     path("editPlant/<int:id>", views.editPlant, name="editPlant"),
+    
     path("search", views.search, name="search"),
+    path("searchResult/<str:input>", views.searchResult, name="searchResult"),
+
+    path("advanceSearch", views.advanceSearch, name="advanceSearch"),
+    path("advanceSearchResult/<str:name>/<str:scientificName>/<str:familyName>/<str:commonName>"
+         , views.advanceSearchResult, name="advanceSearchResult"),
+
+    path("adminSearch", views.adminSearch, name="adminSearch"),
+    path("adminSearchResult/<str:input>", views.adminSearchResult, name="adminSearchResult"),
     path("create", views.create, name="create"),
     path("searchResult", views.searchResult, name='searchResult')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -3,9 +3,9 @@
 {% block admin %}
     <div class="container">
         <h1>{{ title }}</h1>
-        <form action="{% url 'search' %}" method="POST">
-            <input type="text" name="adminSearch">
-            <input type="submit" value="search">
+        <form action="{% url 'adminSearch' %}" method="POST">
+            <input type="text" name="input">
+            <input type="submit" value="Search">
             <input type="hidden" name="admin" value="admin">
         </form>
     </div>

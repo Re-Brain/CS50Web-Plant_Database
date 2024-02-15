@@ -31,25 +31,25 @@
     <section class="center">
         <div class="advanceSearch">
             <h2>Advance Search</h2>
-            <form action="{% url 'search' %}" method="POST">
+            <form action="{% url 'advanceSearch' %}" method="POST">
                 <div class="form-item">
                     <label for="">Name</label>
-                    <input type="text" name="advanceSearch-name">
+                    <input type="text" name="name">
                 </div>
 
                 <div class="form-item">
                     <label for="">Scientific Name</label>
-                    <input type="text" name="advanceSearch-scientific-name">
+                    <input type="text" name="scientific-name">
                 </div>
 
                 <div class="form-item">
                     <label for="">Family Name</label>
-                    <input type="text" name="advanceSearch-family-name">
+                    <input type="text" name="family-name">
                 </div>
 
                 <div class="form-item">
                     <label for="">Common Name</label>
-                    <input type="text" name="advanceSearch-common-name">
+                    <input type="text" name="common-name">
                 </div>
 
                 <div class="form-button">
