@@ -12,10 +12,6 @@
         </div> -->
     {% endif %}
 
-    {% if result %}
-        <input type="hidden" name="result" value="{{ value }}">
-    {% endif %}
-
     {% include "application/nav.html" %} 
 
     <div class="container" id="list">
@@ -87,7 +83,6 @@
            
         </div>
     </div>
-
 {% endblock %}
 
 {% block script %}

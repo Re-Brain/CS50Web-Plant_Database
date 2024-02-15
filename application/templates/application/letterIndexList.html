@@ -2,12 +2,14 @@
 {% load static %}
 
 {% block extra_css %}
-
+<link rel="stylesheet" href="{% static 'application/page.css'%}">  
 {% endblock %}
 
 {% block body %}
-    <h1>ฐานข้อมูลพันธุ์ไม้</h1>
-    <h1>Letter Index List</h1>
+    <div id="page-title-container">
+        <h3>ฐานข้อมูลพันธุ์ไม้</h3>
+        <h3>Letter Index List</h3>
+    </div>
     
     <div class="container">
         <div id="button-container" class="m-3 text-center" data-django-variable="{{ indexList }}">

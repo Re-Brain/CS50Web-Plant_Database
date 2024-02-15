@@ -1,0 +1,11 @@
+#page-title-container
+{
+    text-align: start;
+}
+
+#page-title-container h3
+{
+    font-size: 40px;
+    color: #fff;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 1);
+}

@@ -21,30 +21,44 @@
                 <div class="menu-url-container">
                     <ul class="menu-url">
                         <li class="menu-item">
-                            <a href="{% url 'index' %}" class="menu-item-link"><h2>Home</h2></a>
+                            <a href="{% url 'index' %}" class="menu-item-link">
+                                <p>หน้าแรก</p><p>Home</p>
+                            </a>
                         </li>
                         <li class="menu-item">
-                            <a href="{% url 'plantList' %}" class="menu-item-link"><h2>Plant List</h2></a>
+                            <a href="{% url 'plantList' %}" class="menu-item-link">
+                                <p>พรรณไม้ทั้งหมด</p><p>Plant List</p>
+                            </a>
                         </li>
                         <li class="menu-item">
-                            <a href="{% url 'letterIndexList' indexList='all' %}" class="menu-item-link"><h2>Letter Index List</h2></a>
+                            <a href="{% url 'letterIndexList' indexList='all' %}" class="menu-item-link">
+                                <p>ดัชนีตามอักษร</p><p>Letter Index List</p>
+                            </a>
                         </li>
                         <li class="menu-item">
-                            <a href="{% url 'familyIndexList' %}" class="menu-item-link"><h2>Family Index List</h2></a>
+                            <a href="{% url 'familyIndexList' %}" class="menu-item-link">
+                                <p>แสดงตามวงศ์</p><p>Family Index List</p>
+                            </a>
                         </li>
                         {% if user.is_authenticated %}
                             <li class="menu-item">
-                                <a href="{% url 'dashboard' %}" class="menu-item-link"><h2>Staff_In</h2></a>
+                                <a href="{% url 'dashboard' %}" class="menu-item-link">
+                                    <p>จัดการข้อมูล</p><p>Manage</p>
+                                </a>
                             </li>
                         {% else %}
                             <li class="menu-item">
-                                <a href="{% url 'login' %}" class="menu-item-link"><h2>Staff_Out</h2></a>
+                                <a href="{% url 'login' %}" class="menu-item-link">
+                                    <p>เข้าสู่ระบบ</p><p>Login</p>
+                                </a>
                             </li>
                         {% endif %}
                         <li class="menu-item-search">
                              <form action="{% url 'search' %}" method="POST">
                                 <input type="text" class="form-control" name="input">
-                                <input type="submit" class="btn btn-success" value="Search">
+                                <button type="submit" id="button-normal-search" value="Search">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
                             </form>
                         </li>   
                     </ul>

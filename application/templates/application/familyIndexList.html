@@ -2,12 +2,15 @@
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'application/familyIndexList.css'%}">      
+    <link rel="stylesheet" href="{% static 'application/familyIndexList.css'%}">    
+    <link rel="stylesheet" href="{% static 'application/page.css'%}">    
 {% endblock %}
 
 {% block body %}
-    <h1>ฐานข้อมูลพันธุ์ไม้</h1>
-    <h1>FamilyIndexList</h1>
+    <div id="page-title-container">
+        <h3>ฐานข้อมูลพันธุ์ไม้</h3>
+        <h3>FamilyIndexList</h3>
+    </div>
 
     <div class="container">
         {% for first_letter, family_name_list in organized_data.items %}

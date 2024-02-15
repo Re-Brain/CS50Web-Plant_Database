@@ -10,8 +10,8 @@
 
 <div class="main-container">
 
-    <section class="top">
-        <div class="detail">
+    <section id="introduction">
+        <div id="detail">
             <p>
                 ฐานข้อมูลพรรณไม้ในอุทยานการศึกษาเป็นส่วนหนึ่งของฐานข้อมูลองค์ความรู้ต่างๆ
                 ที่สถานอุทยานการศึกษารัชมังคลาภิเษก จัดทำขึ้นเพื่อให้เป็นแหล่งเรียนรู้ตามอัธยาศัย 
@@ -25,36 +25,36 @@
                 และพัฒนาเป็นสื่อการเรียนรู้สามมิติแบบมีปฏิสัมพันธ์เสมือนจริง ซึ่งนักเรียน นักศึกษา ประชาชนและผู้สนใจทั่วไปสามารถเข้าไปศึกษาหาความรู้ได้ตามอัธยาศัยในอนาคต
             </p>
         </div>
-
     </section>
 
-    <section class="center">
-        <div class="advanceSearch">
+    <section id="searchContainer">
+        <div id="searchContainer-block">
+            <h2>ค้นหาแบบละเอียด</h2>
             <h2>Advance Search</h2>
             <form action="{% url 'advanceSearch' %}" method="POST">
-                <div class="form-item">
-                    <label for="">Name</label>
-                    <input type="text" name="name">
+                <div class="mb-3 mt-3">
+                    <label class="form-label search-label">Name</label>
+                    <input type="text" name="name" class="form-control">
                 </div>
 
-                <div class="form-item">
-                    <label for="">Scientific Name</label>
-                    <input type="text" name="scientific-name">
+                <div class="mb-3">
+                    <label class="form-label search-label">Scientific Name</label>
+                    <input type="text" name="scientific-name" class="form-control">
                 </div>
 
-                <div class="form-item">
-                    <label for="">Family Name</label>
-                    <input type="text" name="family-name">
+                <div class="mb-3">
+                    <label class="form-label search-label">Family Name</label>
+                    <input type="text" name="family-name" class="form-control">
                 </div>
 
-                <div class="form-item">
-                    <label for="">Common Name</label>
-                    <input type="text" name="common-name">
+                <div class="mb-3">
+                    <label class="form-label search-label">Common Name</label>
+                    <input type="text" name="common-name" class="form-control">
                 </div>
 
-                <div class="form-button">
-                    <input type="submit" value="search">
-                    <input type="submit" value="clear">
+                <div class="mb-3">
+                    <input type="submit" value="Search" class="btn btn-secondary" id="button-advance-search">
+                    <input type="submit" value="Clear" class="btn btn-secondary" id="button-advance-clear">
                 </div>
             
             </form>
@@ -62,33 +62,48 @@
     </section>
 
 
-    <section class="bottom">
-        <ul class="searchOption">
-            <li class="searchOption-item">
-                <a href="{% url 'plantList' %}" class="searchOption-item-link">
-                    <h3>พรรณไม้ทั้งหมด</h3>
-                    <h3>Plant List</h3>
-                    <p>
-                        แสดงรายการพรรณไม้ทั้งหมดจากฐานข้อมูลความหลากหลายพรรณไม้ ณ อุทยานการศึกษารัชมังคลาภิเษก มสธ.
-                    </p>
+    <section id="pageContainer">
+        <ul id="page-url">
+            <li class="page-item">
+                <a href="{% url 'plantList' %}" class="page-item-link">
+                    <div class="item-link-header">
+                        <h3>พรรณไม้ทั้งหมด</h3>
+                        <h3>Plant List</h3>
+                    </div>
+
+                    <div class="item-link-text">
+                        <p>
+                                แสดงรายการพรรณไม้ทั้งหมดจากฐานข้อมูลความหลากหลายพรรณไม้ ณ อุทยานการศึกษารัชมังคลาภิเษก มสธ.
+                        </p>
+                    </div>
                 </a>
             </li>
-            <li class="searchOption-item">
-                <a href="{% url 'letterIndexList' indexList='all' %}" class="searchOption-item-link">
-                    <h3>ดัชนีตามอักษร</h3>
-                    <h3>Letter Index List</h3>
-                    <p>
-                        แสดงรายการพรรณไม้ตามดัชนีอักษร ก-ฮ และ a-z จากฐานข้อมูลความหลากหลายพรรณไม้ ณ อุทยานการศึกษารัชมังคลาภิเษก มสธ.
-                    </p>
+            <li class="page-item">
+                <a href="{% url 'letterIndexList' indexList='all' %}" class="page-item-link">
+                    <div class="item-link-header">
+                        <h3>ดัชนีตามอักษร</h3>
+                        <h3>Letter Index List</h3>
+                    </div>
+
+                    <div class="item-link-text">
+                        <p>
+                                แสดงรายการพรรณไม้ตามดัชนีอักษร ก-ฮ และ a-z จากฐานข้อมูลความหลากหลายพรรณไม้ ณ อุทยานการศึกษารัชมังคลาภิเษก มสธ.
+                        </p>
+                    </div> 
                 </a>
             </li>
-            <li class="searchOption-item">
-                <a href="{% url 'familyIndexList' %}" class="searchOption-item-link">
-                    <h3>แสดงตามวงศ์</h3>
-                    <h3>Family Index List</h3>
-                    <p>
-                        แสดงรายการพรรณไม้ตามชื่อวงศ์จากฐานข้อมูลความหลากหลายพรรณไม้ ณ อุทยานการศึกษารัชมังคลาภิเษก มสธ.
-                    </p>
+            <li class="page-item">
+                <a href="{% url 'familyIndexList' %}" class="page-item-link">
+                    <div class="item-link-header">
+                        <h3>แสดงตามวงศ์</h3>
+                        <h3>Family Index List</h3>
+                    </div>
+
+                    <div class="item-link-text">
+                        <p>
+                                แสดงรายการพรรณไม้ตามชื่อวงศ์จากฐานข้อมูลความหลากหลายพรรณไม้ ณ อุทยานการศึกษารัชมังคลาภิเษก มสธ.
+                        </p>
+                    </div> 
                 </a>
             </li>
         </ul>
