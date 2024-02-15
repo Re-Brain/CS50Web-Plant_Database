@@ -1,5 +1,14 @@
 {% extends "application/admin.html" %}
 
 {% block admin %}
+    <div class="container">
+        <h1>{{ title }}</h1>
+        <form action="{% url 'search' %}" method="POST">
+            <input type="text" name="adminSearch">
+            <input type="submit" value="search">
+            <input type="hidden" name="admin" value="admin">
+        </form>
+    </div>
+   
     {% include "application/list.html" %} 
 {% endblock %}

@@ -127,23 +127,6 @@ def plantData(request, id):
     data = plant.objects.get(id=id)
     return render(request, "application/plant.html", {"data" : data })
 
-@receiver(post_delete, sender=plant)
-def delete_plant_media_files(sender, instance, **kwargs):
-    for qr_image in instance.qrImageList.all():
-        print(qr_image.image)
-        if qr_image.image:
-            # Assuming 'media/' is the root directory for your media files
-            file_path = os.path.join('media/', str(qr_image.image))
-            if os.path.exists(file_path):
-                os.remove(file_path)
-
-    for plant_image in instance.plantImageList.all():
-        print(plant_image.image)
-        if plant_image.image:
-            file_path = os.path.join('media/', str(plant_image.image))
-            if os.path.exists(file_path):
-                os.remove(file_path)
-
 def deletePlant(request, id):
     deletePlant = plant.objects.get(id=id)
 
@@ -171,7 +154,63 @@ def familyNameCommonNameChecker():
 
     orphansFamily.delete()
     orphansCommon.delete()
+
+@csrf_exempt
+def search(request):
+
+    if 'search' in request.POST:
+        print("normal")
+        request.session['input'] = request.POST.get('search')
     
+    elif 'adminSearch' in request.POST:
+        print("admin")
+        request.session['input'] = request.POST.get('adminSearch')
+        request.session['admin'] = request.POST.get('admin')
+    else:
+        request.session['advanceSearch-name'] = request.POST.get('advanceSearch-name')
+        request.session['advanceSearch-scientific-name'] = request.POST.get('aadvanceSearch-scientific-name')
+        request.session['advanceSearch-family-name'] = request.POST.get('advanceSearch-family-name')
+        request.session['advanceSearch-common-name'] = request.POST.get('advanceSearch-common-name')
+
+    return HttpResponseRedirect(reverse('searchResult'))
+
+def searchResult(request):
+       
+    if request.session.get('input'):
+        input = request.session.get('input')
+        print("inputResult")
+
+        filteredPlant = plant.objects.filter(
+        Q(name__icontains=input) | Q(scientificName__icontains=input)
+        | Q(familyNameList__familyName__icontains=input) | Q(commonNameList__commonName__icontains=input)
+        ).distinct()
+
+    elif (request.session.get('advanceSearch-name') and request.session.get['advanceSearch-scientific-name'] and 
+        request.session.get['advanceSearch-family-name'] and request.session.get['advanceSearch-common-name']):
+
+        print("inputAdvance")
+
+        name = request.seesion.get('advanceSearch-name')
+        scientificName = request.session.get['advanceSearch-scientific-name']
+        familyName = request.session.get['advanceSearch-family-name']
+        commonName = request.session.get['advanceSearch-common-name']
+
+        filteredPlant = plant.objects.filter(
+        Q(name__icontains=name) | Q(scientificName__icontains=scientificName)
+        | Q(familyNameList__familyName__icontains=familyName) | Q(commonNameList__commonName__icontains=commonName)
+        ).distinct()
+    
+    paginator = Paginator(filteredPlant, 20)
+    page_number = request.GET.get('page')
+    venues = paginator.get_page(page_number)
+
+    if request.session.get('admin') == 'admin':
+        admin = True
+        return render(request, "application/adminResult.html", {"venues" : venues, "admin" : admin})
+    
+    print("normalResult")
+    return render(request, "application/result.html", {"venues" : venues})
+
 @csrf_exempt
 def editPlant(request, id):
     editPlant = plant.objects.get(id=id)
@@ -216,10 +255,13 @@ def editPlant(request, id):
                 if relate_instance_count == 0:
                     name_to_remove.delete()
 
+
         for name in familyNames:
             if name != '':
                 nameInstance, create = familyName.objects.get_or_create(familyName=name)
                 existPlant.familyNameList.add(nameInstance)
+
+        
         
         # Clear the existed item in commonNames before adding new values
         for name in existPlant.commonNameList.all():
@@ -234,6 +276,7 @@ def editPlant(request, id):
             if name != '':
                 nameInstance, create = commonName.objects.get_or_create(commonName=name)
                 existPlant.commonNameList.add(nameInstance)
+
 
         # Clear the existed item in qrImageList that delete by user before adding new values
         for image in existPlant.qrImageList.all():
@@ -260,6 +303,8 @@ def editPlant(request, id):
         for image in plantImages:
             imageInstance = plantImage.objects.create(image=image)
             existPlant.plantImageList.add(imageInstance)
+
+        messages.success(request, ("The information about the plant has been edited"))
 
         return render(request, "application/edit.html", {"plant" : existPlant, "edit" : edit, "title" : title})
 
@@ -308,6 +353,8 @@ def create(request):
         for image in plantImages:
             imageInstance = plantImage.objects.create(image=image)
             newPlant.plantImageList.add(imageInstance)
+
+        messages.success(request, ("A new plant has been added to the database"))
 
         return render(request, "application/create.html", { "title" : title})
    

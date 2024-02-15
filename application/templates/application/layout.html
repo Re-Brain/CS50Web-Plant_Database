@@ -34,10 +34,10 @@
                             <a href="{% url 'familyIndexList' %}" class="page-item-link"><h2>Family Index List</h2></a>
                         </li>
                         <li class="page-item-search border border-dark">
-                             <form action="">
-                            <input type="text">
-                            <input type="submit" value="search">
-                        </form>
+                             <form action="{% url 'search' %}" method="POST">
+                                <input type="text" name="search">
+                                <input type="submit" value="search">
+                            </form>
                         </li>
                         {% if user.is_authenticated %}
                             <li class="page-item">

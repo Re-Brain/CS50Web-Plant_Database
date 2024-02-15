@@ -7,9 +7,13 @@
 {% block body %}
 
     {% if title %}
-        <div class="container">
+        <!-- <div class="container">
             <h1>{{ title }}</h1>
-        </div>
+        </div> -->
+    {% endif %}
+
+    {% if result %}
+        <input type="hidden" name="result" value="{{ value }}">
     {% endif %}
 
     {% include "application/nav.html" %} 
