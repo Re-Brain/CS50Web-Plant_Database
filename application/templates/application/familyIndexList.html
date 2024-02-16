@@ -2,8 +2,8 @@
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'application/familyIndexList.css'%}">    
-    <link rel="stylesheet" href="{% static 'application/page.css'%}">    
+    <link rel="stylesheet" href="{% static 'application/css/familyIndexList.css'%}">    
+    <link rel="stylesheet" href="{% static 'application/css/page.css'%}">    
 {% endblock %}
 
 {% block body %}
@@ -12,7 +12,7 @@
         <h3>FamilyIndexList</h3>
     </div>
 
-    <div class="container">
+    <div class="family-index-container">
         {% for first_letter, family_name_list in organized_data.items %}
             <div class="index-container">
                 <div class="index-item">
