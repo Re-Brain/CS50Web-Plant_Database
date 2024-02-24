@@ -68,6 +68,18 @@
   justify-content: center;
 }
 
+.button-confirm, .button-confirm:hover
+{
+  background-color: #4CAF50;
+  border: 1px solid black;
+}
+
+.button-cancel, .button-cancel:hover
+{
+  background-color: #006400;
+  border: 1px solid black;
+}
+
 .edit-button, .delete-button
 {
   background-color: #006400;

@@ -24,16 +24,19 @@
         {% csrf_token %}
         
         <div class="mb-3">
+            <label class="form-label create-label">ชื่อ</label>
             <label class="form-label create-label">Name</label>
-            <input type="text" class="form-control" name="name" value="{{ plant.name }}" required>
+            <input type="text" class="form-control" name="name" value="{{ plant.name }}" placeholder="จำเป็นต้องกรอกข้อมูล" required>
         </div>
 
         <div class="mb-3">
+            <label class="form-label create-label">ชื่อวิทยาศาสตร์</label>
             <label class="form-label create-label">Scientific Name</label>
-            <input type="text" class="form-control" name="scientific-name" value="{{ plant.scientificName }}" required>
+            <input type="text" class="form-control" name="scientific-name" value="{{ plant.scientificName }}"  placeholder="จำเป็นต้องกรอกข้อมูล" required>
         </div>
         
         <div class="mb-3 multipleName" id="familyName">
+            <label class="form-label create-label">ชื่อวงศ์</label>
             <label class="form-label create-label">Family Name</label>
 
             {% if edit %}
@@ -62,6 +65,7 @@
         </div>
 
         <div class="mb-3 multipleName" id="commonName">
+            <label class="form-label create-label">ชื่อสามัญ</label>
             <label class="form-label create-label">Common Name</label>
 
             {% if edit %}
@@ -90,41 +94,49 @@
         </div>
 
         <div class="mb-3">
+            <label class="form-label create-label">การใช้ประโยชน์</label>
             <label class="form-label create-label">Uses</label>
             <textarea class="form-control" rows="10" cols="50" name="use">{{ plant.uses }}</textarea>
         </div>
 
         <div class="mb-3">
+            <label class="form-label create-label">ลักษณะทางพฤกษศาสตร์</label>
             <label class="form-label create-label">Characteristic</label>
             <textarea type="text" class="form-control" rows="10" cols="50" name="characteristic">{{ plant.characteristic }}</textarea>
         </div>
 
         <div class="mb-3">
+            <label class="form-label create-label">การกระจายพันธุ์</label>
             <label class="form-label create-label">Distribution</label>
             <textarea type="text" class="form-control" rows="10" cols="50" name="distribution">{{ plant.distribution }}</textarea>
         </div>
 
         <div class="mb-3">
+            <label class="form-label create-label">สถานที่พบ</label>
             <label class="form-label create-label">Habitat</label>
             <textarea type="text" class="form-control" rows="10" cols="50" name="habitat">{{ plant.habitat }}</textarea>
         </div>
 
         <div class="mb-3">
+            <label class="form-label create-label">การดูแลรักษา</label>
             <label class="form-label create-label">Care</label>
             <textarea type="text" class="form-control" rows="10" cols="50" name="care">{{ plant.care }}</textarea>
         </div>
 
         <div class="mb-3">
+            <label class="form-label create-label">สถานที่พบ</label>
             <label class="form-label create-label">Location</label>
             <textarea type="text" class="form-control" rows="10" cols="50" name="location">{{ plant.location }}</textarea>
         </div>
 
         <div class="mb-3">
+            <label class="form-label create-label">เอกสารอ้างอิง</label>
             <label class="form-label create-label">Referenece</label>
             <input type="text" class="form-control" name="reference" value="{{ plant.references }}">
         </div>
 
         <div class="mb-3">
+            <label class="form-label create-label">รูปภาพของพืช</label>
             <label class="form-label create-label">Plant Images</label>
             <input type="file" class="form-control" name="image-input" id="image-input" multiple onchange="displayFileNames('image-container', 'image-input')">
             <div class="container-file" id="image-container">

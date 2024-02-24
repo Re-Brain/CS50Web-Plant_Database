@@ -11,11 +11,9 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
-import json
 import os
 import string
 
-# from .forms import plantFormTop
 # Create your views here.
 
 ############### USER ###############
@@ -115,7 +113,7 @@ def dashboard(request):
     if request.user.is_authenticated:
         allPlant = plant.objects.all()
         admin = True
-        title = "Dashboard"
+        title = "ฐานข้อมูลพรรณไม้"
 
         paginator = Paginator(allPlant, 20)
         page_number = request.GET.get('page')
@@ -326,7 +324,7 @@ def editPlant(request, id):
 
 @csrf_exempt
 def create(request):
-    title = "Create"
+    title = "เพิ่มข้อมูล"
     if request.method == "POST":
         name = request.POST.get('name')
         scientificName = request.POST.get('scientific-name')
