@@ -27,6 +27,15 @@
     font-size: 20px;
 }
 
+/* #image-introduction
+{
+    display: block;
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    transition: 0.3s, ease-in
+} */
+
 #searchContainer
 {
     margin-top: 4em;
@@ -42,7 +51,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
     color: #fff;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 1);
-    width: 35%;
+    width: 40%;
     padding: 1em;
 }
 

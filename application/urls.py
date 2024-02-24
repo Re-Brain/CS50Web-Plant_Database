@@ -25,6 +25,7 @@ urlpatterns = [
 
     path("adminSearch", views.adminSearch, name="adminSearch"),
     path("adminSearchResult/<str:input>", views.adminSearchResult, name="adminSearchResult"),
+    
     path("create", views.create, name="create"),
     path("searchResult", views.searchResult, name='searchResult')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

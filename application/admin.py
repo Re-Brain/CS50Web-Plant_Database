@@ -11,9 +11,6 @@ class commonNameAdmin(admin.ModelAdmin):
 class plantAdmin(admin.ModelAdmin):
     list_display = ("id", "name")
 
-class qrImagesAdmin(admin.ModelAdmin):
-    list_display = ("id", "image")
-
 class plantImagesAdmin(admin.ModelAdmin):
     list_display = ("id", "image")
 
@@ -21,5 +18,4 @@ class plantImagesAdmin(admin.ModelAdmin):
 admin.site.register(familyName, familyNameAdmin)
 admin.site.register(commonName, commonNameAdmin)
 admin.site.register(plant, plantAdmin)
-admin.site.register(qrImage, qrImagesAdmin)
 admin.site.register(plantImage, plantImagesAdmin)

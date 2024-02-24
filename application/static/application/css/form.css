@@ -1,3 +1,15 @@
+.create-container
+{
+    width: 75%; 
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 1);
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 20px;
+    font-size: 20px;
+}
+
 .container-file
 {
     margin-left: 10px;
@@ -11,6 +23,10 @@
     flex-direction: row;
     align-items: center;
     justify-content: start;
+}
+
+.container-file-item > * {
+    margin: 5px; 
 }
 
 textarea
@@ -34,12 +50,6 @@ textarea
     flex-direction: row;
 }
 
-.form-container
-{
-    width: 90%; 
-    margin: 0 auto;
-}
-
 .create-label
 {
     font-size: 25px;
@@ -47,7 +57,7 @@ textarea
     text-shadow: 1px 1px 5px rgba(0, 0, 0, 1);
 }
 
-.add-name-button, .delete-name-button
+.add-button, .delete-button
 {
     font-size: 15px;
     color: #fff;
@@ -56,15 +66,15 @@ textarea
     box-shadow: 0 1px 2px rgba(0, 0, 0, 1);
 }
 
-.delete-name-button, .delete-name-button:hover, .delete-name-button:active 
-, .delete-name-button:active, .delete-name-button:focus
+.delete-button, .delete-button:hover, .delete-button:active 
+, .delete-button:active, .delete-button:focus
 {
     background-color: #006400 !important;
     border: 1px solid black;
 }
 
-.add-name-button, .add-name-button:hover, .add-name-button:active
-, add-name-button:active, .add-name-button:focus
+.add-button, .add-button:hover, .add-button:active
+, .add-button:active, .add-button:focus
 {
     background-color: #4CAF50;
     border: 1px solid black;

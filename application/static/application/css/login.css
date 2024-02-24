@@ -1,0 +1,12 @@
+.login-container
+{
+    width: 40%;
+    margin: 0 auto;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 1);
+    font-size: 20px;
+}

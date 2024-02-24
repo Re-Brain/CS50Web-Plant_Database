@@ -176,22 +176,5 @@
                 </div>
             </div>
         </div>
-
-        <div class="row row-decoration">
-            <div class="col-3 col-title">
-                <p>QR Images</p>
-            </div>
-            <div class="col-9">
-                <div class="data-item">
-                    {% if data.qrImageList.exists %}
-                        {% for image in data.qrImageList.all %}
-                            <img src="{{ image.image.url }}" alt="">
-                        {% endfor %}
-                    {% else %}
-                        <p>No Image available</p>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
     </div>
 {% endblock %}

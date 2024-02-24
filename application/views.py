@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import JsonResponse, HttpResponseRedirect
-from .models import plant, familyName, plantImage, qrImage, commonName
+from .models import plant, familyName, plantImage, commonName
 from django.db.models import Q
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
@@ -90,15 +90,18 @@ def login_user(request):
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
-        print(username, password)
+
+        if not username or not password:
+            messages.error(request, "Both account name and password are required.")
+            return redirect('login')
+        
         user = authenticate(request, username=username, password=password)
+
         if user is not None:
             login(request, user)
             return redirect('dashboard')
-            # Redirect to a success page.
         else:
-            # Return an 'invalid login' error message.
-            messages.success(request, ("There was an error login try again"))
+            messages.error(request, ("Invalid login credentials. Please try again."))
             return redirect('login')
 
     return render(request, "application/login.html", {})
@@ -211,15 +214,19 @@ def advanceSearchResult(request, name, scientificName, familyName, commonName):
 
     return render(request, "application/result.html", {"venues" : venues})
 
-@login_required
 @csrf_exempt
 def adminSearch(request):
-    input = request.POST.get('input')
+    if request.user.is_authenticated:
+        input = request.POST.get('input')
 
-    if not input:
-        input = None
-        
-    return redirect('adminSearchResult', input=input)
+        if not input:
+            input = None
+            
+        return redirect('adminSearchResult', input=input)
+    else:
+        messages.success(request, ("Please login to use the dashboard"))
+        return redirect('login')
+
 
 def adminSearchResult(request, input):
     filteredPlant = plant.objects.filter(
@@ -232,42 +239,6 @@ def adminSearchResult(request, input):
     venues = paginator.get_page(page_number)
 
     return render(request, "application/adminResult.html", {"venues" : venues, "admin" : True})
-
-
-# def searchResult(request):
-
-#     for key, value in request.POST.items():
-#         print(f"Post Key: {key}, Value: {value}")
-       
-#     if request.POST.get('input'):
-#         input = request.POST.get('input')
-#         print("inputResult")
-
-#     elif (request.session.get('advanceSearch-name') and request.session.get('advanceSearch-scientific-name') and 
-#         request.session.get('advanceSearch-family-name') and request.session.get('advanceSearch-common-name')):
-
-#         print("inputAdvance")
-
-#         name = request.session.get('advanceSearch-name')
-#         scientificName = request.session.get('advanceSearch-scientific-name')
-#         familyName = request.session.get('advanceSearch-family-name')
-#         commonName = request.session.get('advanceSearch-common-name')
-
-#         filteredPlant = plant.objects.filter(
-#         Q(name__icontains=name) | Q(scientificName__icontains=scientificName)
-#         | Q(familyNameList__familyName__icontains=familyName) | Q(commonNameList__commonName__icontains=commonName)
-#         ).distinct()
-    
-#     paginator = Paginator(filteredPlant, 20)
-#     page_number = request.GET.get('page')
-#     venues = paginator.get_page(page_number)
-
-#     if request.session.get('admin') == 'admin':
-#         admin = True
-#         return render(request, "application/adminResult.html", {"venues" : venues, "admin" : admin})
-    
-#     print("normalResult")
-#     return render(request, "application/result.html", {"venues" : venues})
 
 @csrf_exempt
 def editPlant(request, id):
@@ -290,7 +261,6 @@ def editPlant(request, id):
         reference = request.POST.get('reference')
         qrImages = request.FILES.getlist('qr-input')
         plantImages = request.FILES.getlist('image-input')
-        existQRImages = request.POST.getlist('qr-image-info')
         existPlantImages = request.POST.getlist('plant-image-info')
 
         existPlant = plant.objects.get(id=plantID)
@@ -335,20 +305,6 @@ def editPlant(request, id):
                 nameInstance, create = commonName.objects.get_or_create(commonName=name)
                 existPlant.commonNameList.add(nameInstance)
 
-
-        # Clear the existed item in qrImageList that delete by user before adding new values
-        for image in existPlant.qrImageList.all():
-            if str(image.id) not in existQRImages:
-                image_to_remove = qrImage.objects.get(id=image.id)
-                existPlant.qrImageList.remove(image_to_remove)
-                os.remove(image_to_remove.image.path)
-                image_to_remove.delete()
-                existPlant.save()
-
-        for image in qrImages:
-            imageInstance = qrImage.objects.create(image=image)
-            existPlant.qrImageList.add(imageInstance)
-
         # Clear the existed item in plantImageList that delete by user before adding new values
         for image in existPlant.plantImageList.all():
             if str(image.id) not in existPlantImages:
@@ -383,11 +339,10 @@ def create(request):
         care = request.POST.get('care')
         location = request.POST.get('location')
         reference = request.POST.get('reference')
-        qrImages = request.FILES.getlist('qr-input')
         plantImages = request.FILES.getlist('image-input')
 
         print(name, scientificName, familyNames, commonNames, use
-              , characteristic , distribution, habitat, care, location, reference, qrImages, plantImages)
+              , characteristic , distribution, habitat, care, location, reference, plantImages)
 
         newPlant = plant.objects.create(name=name, scientificName=scientificName
                         , uses=use, characteristic=characteristic, 
@@ -403,10 +358,6 @@ def create(request):
             if name != '':
                 nameInstance, create = commonName.objects.get_or_create(commonName=name)
                 newPlant.commonNameList.add(nameInstance)
-        
-        for image in qrImages:
-            imageInstance = qrImage.objects.create(image=image)
-            newPlant.qrImageList.add(imageInstance)
 
         for image in plantImages:
             imageInstance = plantImage.objects.create(image=image)

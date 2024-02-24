@@ -15,12 +15,7 @@ class commonName(models.Model):
     def __str__(self):
         return f"{self.commonName}"
     
-class qrImage(models.Model):
-    image = models.ImageField(null=True, blank=True, upload_to="qr/")
 
-    def __str__(self):
-        return os.path.basename(self.image.name)
-    
 class plantImage(models.Model):
     image = models.ImageField(null=True, blank=True, upload_to="plant/")
 
@@ -39,7 +34,6 @@ class plant(models.Model):
     care = models.TextField(null=True, blank=True)
     location = models.TextField(null=True, blank=True)
     references = models.URLField(null=True, blank=True)
-    qrImageList = models.ManyToManyField("qrImage", related_name="qrImg", blank=True)
     plantImageList = models.ManyToManyField("plantImage", related_name="plantImg", blank=True)
 
     def __str__(self):
