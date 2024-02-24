@@ -16,30 +16,28 @@ import string
 
 # Create your views here.
 
-############### USER ###############
-   
-############ Listing Pages #############
-
+# home page
 def index(request):
     return render(request, "application/index.html")
 
+# all plant list page
 def plantList(request):
-    allPlant = plant.objects.all()
-
+    allPlant = plant.objects.all() # List all the plant in the database
+ 
+    # Create pagination data 
     paginator = Paginator(allPlant, 20)
     page_number = request.GET.get('page')
     venues = paginator.get_page(page_number)
 
-    return render(request, "application/plantList.html", {"venues" : venues})
+    return render(request, "application/plantList.html", {"venues" : venues}) 
 
+# letter index list page
 def letterIndexList(request, indexList):
-    if indexList == "all":
-        plants = plant.objects.all()
-    else:
+    if indexList == "all": # Initial page when no button apply
+        plants = plant.objects.all() 
+    else: # When some button was clicked
         charList = indexList.split('+')
         sortedList = sorted(charList)
-
-        print(sortedList)
 
         filter_condition = Q()
         for word in sortedList:
@@ -48,69 +46,76 @@ def letterIndexList(request, indexList):
                                 Q(familyNameList__familyName__iregex=f'^{word}') |
                                 Q(commonNameList__commonName__iregex=f'^{word}'))
         
-        plants = plant.objects.filter(filter_condition).distinct()
+        plants = plant.objects.filter(filter_condition).distinct() # Data filterd based on the button
 
+    # Create pagination data 
     paginator = Paginator(plants, 20)
     page_number = request.GET.get('page')
     venues = paginator.get_page(page_number)
 
     return render(request, "application/letterIndexList.html", {"venues" : venues , "indexList" : indexList})
 
-
+# family index list page
 def familyIndexList(request):
     allFamilyName = familyName.objects.all()
-    organized_data = {}
+    organized_data = {} # Organize data by using alphabet
 
-    for uppercase_letter in string.ascii_uppercase:
+    for uppercase_letter in string.ascii_uppercase: # Assign each key value (A-Z)
         organized_data[uppercase_letter] = []
 
-    for name in allFamilyName:
+    for name in allFamilyName: # Assign each value in familyName based on the first alphabet to put in each key value
         first_letter = name.familyName[0].upper()
         organized_data[first_letter].append(name)
 
-    for key, value in organized_data.items():
+    for key, value in organized_data.items(): # Sorted each array
         organized_data[key] = sorted(value, key=lambda x: x.familyName)
 
     return render(request, "application/familyIndexList.html", {"organized_data" : organized_data})
 
+# List result contains all plant with same familyName
 def familyNameSort(request, familyName):
+    # Plants with same family name
     allPlant = plant.objects.filter(familyNameList__familyName=familyName)
 
     title = "Familyname: " + familyName
 
+     # Create pagination data 
     paginator = Paginator(allPlant, 20)
     page_number = request.GET.get('page')
     venues = paginator.get_page(page_number)
 
     return render(request, "application/result.html", {"venues" : venues , "title" : title})
 
+# the login page
 def login_user(request):
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
 
-        if not username or not password:
-            messages.error(request, "Both account name and password are required.")
+        if not username or not password: # if the username or password is not filled
+            messages.error(request, "กรุณากรอกทั้งชื่อและรหัสผ่าน")
             return redirect('login')
         
         user = authenticate(request, username=username, password=password)
 
-        if user is not None:
+        if user is not None: # if the user was not in the system
             login(request, user)
             return redirect('dashboard')
         else:
-            messages.error(request, ("Invalid login credentials. Please try again."))
+            messages.error(request, ("ชื่อหรือรหัสผ่านมีข้อผิดพลาด"))
             return redirect('login')
 
     return render(request, "application/login.html", {})
 
+# the logout system
 def logout_user(request):
     logout(request)
     messages.success(request, ("Successfully logout"))
     return redirect('login')
 
+# admin dashboard page
 def dashboard(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated: # if user login to the system
         allPlant = plant.objects.all()
         admin = True
         title = "ฐานข้อมูลพรรณไม้"
@@ -123,19 +128,18 @@ def dashboard(request):
     else:
         messages.success(request, ("Please login to use the dashboard"))
         return redirect('login')
-    
+
+# Plant data page
 def plantData(request, id):
     data = plant.objects.get(id=id)
     return render(request, "application/plant.html", {"data" : data })
 
+# delte plant system
 def deletePlant(request, id):
     deletePlant = plant.objects.get(id=id)
 
     if request.method == 'DELETE':
         familyNameCommonNameChecker()
-
-        for image in deletePlant.qrImageList.all():
-            os.remove(image.image.path)
 
         for image in deletePlant.plantImageList.all():
             os.remove(image.image.path)
@@ -146,6 +150,7 @@ def deletePlant(request, id):
     
     return JsonResponse({'message': 'Invalid request method.'}, status=400)
 
+# delete commonName and familyName that isn't use
 def familyNameCommonNameChecker():
     allFamilyName = familyName.objects.all()
     allCommonName = commonName.objects.all()
@@ -156,6 +161,7 @@ def familyNameCommonNameChecker():
     orphansFamily.delete()
     orphansCommon.delete()
 
+# normal Search engine page
 @csrf_exempt
 def search(request):
     input = request.POST.get('input')
@@ -165,6 +171,7 @@ def search(request):
     
     return redirect('searchResult', input=input)
  
+# normal search engine system
 def searchResult(request, input):
     
     filteredPlant = plant.objects.filter(
@@ -178,6 +185,7 @@ def searchResult(request, input):
 
     return render(request, "application/result.html", {"venues" : venues})
 
+# advance search engine page
 @csrf_exempt
 def advanceSearch(request):
     name = request.POST.get('name')
@@ -200,6 +208,7 @@ def advanceSearch(request):
     return redirect('advanceSearchResult', name=name, scientificName=scientificName,
                     familyName=familyName, commonName=commonName)
 
+# advance search engine system
 def advanceSearchResult(request, name, scientificName, familyName, commonName):
     filteredPlant = plant.objects.filter(
         Q(name__icontains=name) | Q(scientificName__icontains=scientificName)
@@ -212,6 +221,7 @@ def advanceSearchResult(request, name, scientificName, familyName, commonName):
 
     return render(request, "application/result.html", {"venues" : venues})
 
+# admin search engine page
 @csrf_exempt
 def adminSearch(request):
     if request.user.is_authenticated:
@@ -225,7 +235,7 @@ def adminSearch(request):
         messages.success(request, ("Please login to use the dashboard"))
         return redirect('login')
 
-
+# admin search engine system
 def adminSearchResult(request, input):
     filteredPlant = plant.objects.filter(
         Q(name__icontains=input) | Q(scientificName__icontains=input)
@@ -238,6 +248,7 @@ def adminSearchResult(request, input):
 
     return render(request, "application/adminResult.html", {"venues" : venues, "admin" : True})
 
+# edit plant page and system
 @csrf_exempt
 def editPlant(request, id):
     editPlant = plant.objects.get(id=id)
@@ -316,12 +327,13 @@ def editPlant(request, id):
             imageInstance = plantImage.objects.create(image=image)
             existPlant.plantImageList.add(imageInstance)
 
-        messages.success(request, ("The information about the plant has been edited"))
+        messages.success(request, ("ข้อมูลพืชได้รับการแก้ไข"))
 
         return render(request, "application/edit.html", {"plant" : existPlant, "edit" : edit, "title" : title})
 
     return render(request, "application/edit.html", {"plant" : editPlant, "edit" : edit, "title" : title})
 
+# edit plant page and system
 @csrf_exempt
 def create(request):
     title = "เพิ่มข้อมูล"
@@ -361,7 +373,7 @@ def create(request):
             imageInstance = plantImage.objects.create(image=image)
             newPlant.plantImageList.add(imageInstance)
 
-        messages.success(request, ("A new plant has been added to the database"))
+        messages.success(request, ("ข้อมูลพืชตัวใหม่ได้ถูกเพิ่มเข้าไปในฐานข้อมูล"))
 
         return render(request, "application/create.html", { "title" : title})
    

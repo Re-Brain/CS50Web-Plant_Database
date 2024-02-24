@@ -28,10 +28,11 @@
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 1);
 }
 
-.button-admin:hover
+.button-admin:hover, .button-admin:active, .button-admin:focus, .button-admin.click
 {
     border: 1px solid black;
     background-color: #4CAF50;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 1);
 }
 
 .button-admin-logout
@@ -39,10 +40,11 @@
     background-color: #006400;
 }
 
-.button-admin-logout:hover
+.button-admin-logout:hover, .button-admin-logout:active, .button-admin-logout:focus, .button-admin-logout.click
 {
     border: 1px solid black;
     background-color: #006400;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 1);
 }
 
 .admin-title

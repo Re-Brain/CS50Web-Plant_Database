@@ -139,8 +139,8 @@ table {
     margin-left: 5px;
     margin-right: 5px;
     box-shadow: 0 0 4px rgba(0, 0, 0, 3);
-    border: none; /* Remove default border */
-    outline: none; /* Remove default outline */
+    border: none;
+    outline: none;
 }
 
 #button-normal-search

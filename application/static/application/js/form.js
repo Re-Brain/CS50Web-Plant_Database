@@ -43,7 +43,7 @@ function deleteName(event, inputContainer, deleteButtonID)
     let numberOfChildren = container.children.length
     console.log(numberOfChildren)
 
-    if (numberOfChildren == 2)
+    if (numberOfChildren == 3)
     {
         let deleteName = document.getElementById(deleteButtonID)
         deleteName.style.display = 'none'
@@ -51,10 +51,6 @@ function deleteName(event, inputContainer, deleteButtonID)
     
 }
 
-function hideItem(item)
-{
-    
-}
 
 function displayFileNames(containerElement, inputElement)
 {

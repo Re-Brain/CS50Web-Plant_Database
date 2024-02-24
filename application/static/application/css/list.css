@@ -68,28 +68,24 @@
   justify-content: center;
 }
 
-.button-confirm, .button-confirm:hover
+.button-confirm, .button-confirm:hover, .button-confirm:active, .button-confirm:focus .button-confirm:focus.clicked
 {
-  background-color: #4CAF50;
-  border: 1px solid black;
-}
-
-.button-cancel, .button-cancel:hover
-{
-  background-color: #006400;
-  border: 1px solid black;
-}
-
-.edit-button, .delete-button
-{
-  background-color: #006400;
+  background-color: #4CAF50 !important;
   border: 1px solid black;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 1);
 }
 
-.edit-button:hover, .delete-button:hover
+.button-cancel, .button-cancel:hover, .button-cancel:active, .button-cancel:focus
 {
-  background-color: #006400;
+  background-color: #006400 !important;
+  border: 1px solid black;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 1);
+}
+
+.edit-button, .edit-button:hover, .edit-button:active, .edit-button:focus, .edit-button.clicked,
+.delete-button, .delete-button:hover, .delete-button:active, .delete-button:focus, .delete-button.clicked
+{
+  background-color: #006400 !important; 
   border: 1px solid black;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 1);
 }
