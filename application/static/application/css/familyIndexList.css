@@ -49,3 +49,14 @@
     color: #fff;
 }
 
+@media only screen and (max-width: 500px) {
+    .index-item h2
+    {
+        font-size: 25px;
+    }
+
+    .index-item-name 
+    {
+        font-size: 17px;
+    }
+}

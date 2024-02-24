@@ -253,7 +253,7 @@ def adminSearchResult(request, input):
 def editPlant(request, id):
     editPlant = plant.objects.get(id=id)
     edit = True
-    title = "Edit:"
+    title = "แก้ไขข้อมูล"
 
     if request.method == "POST":
         plantID = request.POST.get('id')

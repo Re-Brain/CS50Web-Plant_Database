@@ -10,3 +10,12 @@
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 1);
     font-size: 20px;
 }
+
+@media only screen and (max-width: 1350px) {
+
+    .login-container
+    {
+        width: 80%;
+    }
+
+}

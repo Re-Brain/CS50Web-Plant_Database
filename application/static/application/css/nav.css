@@ -52,3 +52,17 @@
 {
     color: #fff;
 }
+
+@media only screen and (max-width: 500px) {
+    .page-link
+    {
+        width: 20px;
+        height: 20px;
+        padding: 15px;
+    }
+
+    .page-link p
+    {
+        font-size: 15px;
+    }
+}

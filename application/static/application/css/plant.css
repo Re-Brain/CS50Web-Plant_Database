@@ -31,6 +31,7 @@
     font-size: 18px;
     color: #fff;
     text-shadow: 1px 1px 5px rgba(0, 0, 0, 1);
+    text-align: center;
 }
 
 .data-item
@@ -53,4 +54,23 @@
     margin: 10px;
     width: 250px;
     height: auto;
+}
+
+@media only screen and (max-width: 500px) {
+    .data-container
+    {
+        width: 100%;
+    }
+
+    .col-title
+    {
+        font-size: 12px;
+        text-align: center;
+        padding: 0;
+    }
+
+    .data-item
+    {
+        font-size: 10px;
+    }
 }

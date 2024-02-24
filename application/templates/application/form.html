@@ -145,7 +145,7 @@
                         <div class="container-file-item" id="plant-image-display-{{ image.id }}">
                             <p class="mt-1 create-label">{{ image }}</p>
                             <button class="btn btn-secondary add-button" 
-                            onclick="deleteImage('plant-image-info-{{ image.id }}' , 'plant-image-display-{{ image.id }}')">Delete</button>
+                            onclick="deleteImage('plant-image-info-{{ image.id }}' , 'plant-image-display-{{ image.id }}')">ลบรูป</button>
                         </div>
                     {% endfor %}
                 {% endif %}
@@ -162,7 +162,7 @@
 
         {% endif %}
 
-        <input type="submit" value="{{ title }}" class="btn btn-secondary add-button">
+        <input type="submit" value="{{ title }}" class="btn btn-secondary add-button" id="submit">
     </form>
 </div>
 {% endblock %}

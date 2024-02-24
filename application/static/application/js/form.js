@@ -64,18 +64,15 @@ function displayFileNames(containerElement, inputElement)
         let imageContainer = document.createElement("div")
         let name = document.createElement('p')
         let deleteButton = document.createElement('button')
-        let icon = document.createElement('i')
-
-        icon.className = "fa-solid fa-xmark"
-        deleteButton.appendChild(icon)
 
         imageContainer.className = "container-file-item"
 
-        name.className = "mt-1"
+        name.className = "mt-1 create-label"
         name.textContent = input.files[i].name
 
-        deleteButton.className = "btn btn-primary btn-sm ms-1"
+        deleteButton.className = "btn btn-primary btn-sm ms-1 delete-button"
         deleteButton.type = "button";
+        deleteButton.innerHTML = "ลบรูปภาพ"
 
         let currentContainer = containerElement
         let currentInput = inputElement

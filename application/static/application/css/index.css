@@ -27,15 +27,6 @@
     font-size: 20px;
 }
 
-/* #image-introduction
-{
-    display: block;
-    width: 700px;
-    height: 700px;
-    border-radius: 50%;
-    transition: 0.3s, ease-in
-} */
-
 #searchContainer
 {
     margin-top: 4em;
@@ -138,5 +129,95 @@
    line-height: 1.5;
    letter-spacing: 1px;
    font-size: 18px;
+}
+
+@media only screen and (max-width: 1350px) {
+
+    #detail
+    {
+        width: 95%;
+    }
+
+    #searchContainer-block
+    { 
+        width: 75%;
+    }
+
+    #page-url
+    {
+        flex-direction: column;
+    }
+
+    #page-url > *
+    {
+       margin: 10px;
+    }
+
+    .page-item
+    {
+        width: 380px;
+        height: 240px;
+    }
+}
+
+@media only screen and (max-width: 500px)
+{
+    .menu-item
+    {
+        width: 200px;
+        margin: 10px;
+    }
+
+    #detail
+    {
+        width: 100%;
+    }
+
+    #detail p
+    {
+        font-size: 12px;
+    }
+
+    .search-label
+    {
+        font-size: 15px;
+    }
+
+    #searchContainer-block
+    { 
+        width: 100%;
+    }
+
+    #searchContainer-block h2
+    {
+        text-align: center;
+        font-size: 17px;
+    }
+
+    .item-link-header h3
+    {
+        font-size: 17px;
+    }
+
+    .item-link-text p 
+    {
+        font-size: 15px;
+    }
+
+    .page-item
+    {
+        width: 300px;
+        height: 240px;
+    }
+
+    #button-advance-search
+    {
+        font-size: 15px;
+    }
+
+    #button-advance-clear
+    {
+        font-size: 15px;
+    }
 }
 

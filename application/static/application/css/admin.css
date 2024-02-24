@@ -1,3 +1,8 @@
+#dashboard-container
+{
+    width: 100%;
+}
+
 .dashboard-option
 {
     text-align: center;
@@ -54,12 +59,12 @@
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 1);
 }
 
-#advanceSearch
+#adminSearch
 {
     width: 40%;
 }
 
-#advanceSearch form
+#adminSearch form
 {
     display: flex;
     align-items: center;
@@ -68,12 +73,12 @@
     padding: 10px;
 }
 
-#advanceSearch form input[type="text"]
+#adminSearch form input[type="text"]
 {
     box-shadow: 0 0 4px rgba(0, 0, 0, 3);
 }
 
-#advanceSearch form input[type="submit"]
+#adminSearch form input[type="submit"]
 {
     padding: 10px;
     border: 1px solid black;
@@ -82,4 +87,47 @@
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 1);
     background-color: #4CAF50;
     border-radius: 20px;
+}
+
+@media only screen and (max-width: 1350px) {
+
+    #adminSearch
+    {
+        width: 60%;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+
+    .dashboard-option h1
+    {
+        font-size: 30px;
+    }
+
+    .button-admin ,.button-admin-logout
+    {
+        font-size: 15px;
+    }
+
+    .admin-title
+    {
+        font-size: 25px;
+    }
+
+    #adminSearch
+    {
+        width: 100%;
+    }
+
+    .edit-button
+    {
+        font-size: 10px;
+        margin: 2px;
+    }
+
+    .delete-button
+    {
+        font-size: 10px;
+        margin: 2px;
+    }
 }

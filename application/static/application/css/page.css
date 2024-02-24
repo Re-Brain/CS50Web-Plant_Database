@@ -9,3 +9,10 @@
     color: #fff;
     text-shadow: 1px 1px 5px rgba(0, 0, 0, 1);
 }
+
+@media only screen and (max-width: 500px) {
+    #page-title-container h3
+    {
+        font-size: 25px;
+    }
+ }

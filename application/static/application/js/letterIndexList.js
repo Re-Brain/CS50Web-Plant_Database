@@ -1,8 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
+    var hasInteracted = false;
+
     generateThaiAlphabetButtons();
     generateAlphabetButtons();
-    checkButton();
 });
+
+window.onbeforeunload = function(e) {
+    localStorage.setItem('scrollpos', window.scrollY);
+};
 
 function generateAlphabetButtons() {
     var buttonContainer = document.getElementById('eng-button-container')
@@ -47,7 +52,7 @@ function createButtons(buttonContainer, min , max)
           button.className = 'btn btn-primary mr-2 m-1' // Bootstrap button styling
         }
        
-        button.addEventListener("click", function () {
+        button.addEventListener("click", function (event) {          
           if(charlist.includes(letter))
           {
               if(charlist.length == 1)
