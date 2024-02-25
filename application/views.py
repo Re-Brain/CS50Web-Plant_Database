@@ -110,7 +110,7 @@ def login_user(request):
 # the logout system
 def logout_user(request):
     logout(request)
-    messages.success(request, ("Successfully logout"))
+    messages.success(request, ("ล็อคเอาท์จากระบบเรียบร้อยแล้ว"))
     return redirect('login')
 
 # admin dashboard page
@@ -327,6 +327,7 @@ def editPlant(request, id):
             imageInstance = plantImage.objects.create(image=image)
             existPlant.plantImageList.add(imageInstance)
 
+        existPlant.save()
         messages.success(request, ("ข้อมูลพืชได้รับการแก้ไข"))
 
         return render(request, "application/edit.html", {"plant" : existPlant, "edit" : edit, "title" : title})
