@@ -22,7 +22,7 @@ def index(request):
 
 # all plant list page
 def plantList(request):
-    allPlant = plant.objects.all() # List all the plant in the database
+    allPlant = plant.objects.all().order_by('id') # List all the plant in the database
  
     # Create pagination data 
     paginator = Paginator(allPlant, 20)
@@ -34,7 +34,7 @@ def plantList(request):
 # letter index list page
 def letterIndexList(request, indexList):
     if indexList == "all": # Initial page when no button apply
-        plants = plant.objects.all() 
+        plants = plant.objects.all().order_by('id') 
     else: # When some button was clicked
         charList = indexList.split('+')
         sortedList = sorted(charList)
@@ -46,7 +46,7 @@ def letterIndexList(request, indexList):
                                 Q(familyNameList__familyName__iregex=f'^{word}') |
                                 Q(commonNameList__commonName__iregex=f'^{word}'))
         
-        plants = plant.objects.filter(filter_condition).distinct() # Data filterd based on the button
+        plants = plant.objects.filter(filter_condition).order_by('id').distinct() # Data filterd based on the button
 
     # Create pagination data 
     paginator = Paginator(plants, 20)
@@ -57,7 +57,7 @@ def letterIndexList(request, indexList):
 
 # family index list page
 def familyIndexList(request):
-    allFamilyName = familyName.objects.all()
+    allFamilyName = familyName.objects.all().order_by('id')
     organized_data = {} # Organize data by using alphabet
 
     for uppercase_letter in string.ascii_uppercase: # Assign each key value (A-Z)
@@ -75,7 +75,7 @@ def familyIndexList(request):
 # List result contains all plant with same familyName
 def familyNameSort(request, familyName):
     # Plants with same family name
-    allPlant = plant.objects.filter(familyNameList__familyName=familyName)
+    allPlant = plant.objects.filter(familyNameList__familyName=familyName).order_by('id')
 
     title = "Familyname: " + familyName
 
@@ -116,7 +116,7 @@ def logout_user(request):
 # admin dashboard page
 def dashboard(request):
     if request.user.is_authenticated: # if user login to the system
-        allPlant = plant.objects.all()
+        allPlant = plant.objects.all().order_by('id')
         admin = True
         title = "ฐานข้อมูลพรรณไม้"
 
@@ -177,7 +177,7 @@ def searchResult(request, input):
     filteredPlant = plant.objects.filter(
         Q(name__icontains=input) | Q(scientificName__icontains=input)
         | Q(familyNameList__familyName__icontains=input) | Q(commonNameList__commonName__icontains=input)
-        ).distinct()
+        ).order_by('id').distinct()
     
     paginator = Paginator(filteredPlant, 20)
     page_number = request.GET.get('page')
@@ -213,7 +213,7 @@ def advanceSearchResult(request, name, scientificName, familyName, commonName):
     filteredPlant = plant.objects.filter(
         Q(name__icontains=name) | Q(scientificName__icontains=scientificName)
         | Q(familyNameList__familyName__icontains=familyName) | Q(commonNameList__commonName__icontains=commonName)
-        ).distinct()
+        ).order_by('id').distinct()
     
     paginator = Paginator(filteredPlant, 20)
     page_number = request.GET.get('page')
@@ -240,7 +240,7 @@ def adminSearchResult(request, input):
     filteredPlant = plant.objects.filter(
         Q(name__icontains=input) | Q(scientificName__icontains=input)
         | Q(familyNameList__familyName__icontains=input) | Q(commonNameList__commonName__icontains=input)
-        ).distinct()
+        ).order_by('id').distinct()
     
     paginator = Paginator(filteredPlant, 20)
     page_number = request.GET.get('page')
