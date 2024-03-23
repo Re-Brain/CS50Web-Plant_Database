@@ -3,25 +3,29 @@ from django.contrib.auth.models import AbstractUser
 import os
 
 # Create your models here.
+
+# Family name model
 class familyName(models.Model):
     familyName = models.CharField(max_length=255)
 
     def __str__(self):
         return f"{self.familyName}"
 
+# Common name model
 class commonName(models.Model):
     commonName = models.CharField(max_length=255)
 
     def __str__(self):
         return f"{self.commonName}"
     
-
+# Plant image model
 class plantImage(models.Model):
     image = models.ImageField(null=True, blank=True, upload_to="plant/")
 
     def __str__(self):
         return os.path.basename(self.image.name)
-    
+
+# Plant model  
 class plant(models.Model):
     name = models.CharField(max_length=100)
     scientificName = models.CharField(max_length=100)

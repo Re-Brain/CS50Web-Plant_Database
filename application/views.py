@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -9,18 +8,16 @@ from .models import plant, familyName, plantImage, commonName
 from django.db.models import Q
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
-from django.db.models.signals import post_delete
-from django.dispatch import receiver
 import os
 import string
 
 # Create your views here.
 
-# home page
+# Return home page
 def index(request):
     return render(request, "application/index.html")
 
-# all plant list page
+# Return all plant list page
 def plantList(request):
     allPlant = plant.objects.all().order_by('id') # List all the plant in the database
  
@@ -31,12 +28,12 @@ def plantList(request):
 
     return render(request, "application/plantList.html", {"venues" : venues}) 
 
-# letter index list page
+# Return letter index list page
 def letterIndexList(request, indexList):
     if indexList == "all": # Initial page when no button apply
         plants = plant.objects.all().order_by('id') 
     else: # When some button was clicked
-        charList = indexList.split('+')
+        charList = indexList.split('+') # Split all the alphabet store in indexList and put into array
         sortedList = sorted(charList)
 
         filter_condition = Q()
@@ -55,7 +52,7 @@ def letterIndexList(request, indexList):
 
     return render(request, "application/letterIndexList.html", {"venues" : venues , "indexList" : indexList})
 
-# family index list page
+# Return family index list page
 def familyIndexList(request):
     allFamilyName = familyName.objects.all().order_by('id')
     organized_data = {} # Organize data by using alphabet
@@ -72,7 +69,7 @@ def familyIndexList(request):
 
     return render(request, "application/familyIndexList.html", {"organized_data" : organized_data})
 
-# List result contains all plant with same familyName
+# Return list result contains all plant with same familyName page
 def familyNameSort(request, familyName):
     # Plants with same family name
     allPlant = plant.objects.filter(familyNameList__familyName=familyName).order_by('id')
@@ -86,7 +83,7 @@ def familyNameSort(request, familyName):
 
     return render(request, "application/result.html", {"venues" : venues , "title" : title})
 
-# the login page
+# Return the login page
 def login_user(request):
     if request.method == "POST":
         username = request.POST["username"]
@@ -107,13 +104,13 @@ def login_user(request):
 
     return render(request, "application/login.html", {})
 
-# the logout system
+# The logout system
 def logout_user(request):
     logout(request)
     messages.success(request, ("ล็อคเอาท์จากระบบเรียบร้อยแล้ว"))
     return redirect('login')
 
-# admin dashboard page
+# Return admin dashboard page
 def dashboard(request):
     if request.user.is_authenticated: # if user login to the system
         allPlant = plant.objects.all().order_by('id')
@@ -129,12 +126,12 @@ def dashboard(request):
         messages.success(request, ("Please login to use the dashboard"))
         return redirect('login')
 
-# Plant data page
+# Return plant data page
 def plantData(request, id):
     data = plant.objects.get(id=id)
     return render(request, "application/plant.html", {"data" : data })
 
-# delte plant system
+# Delete plant system
 def deletePlant(request, id):
     deletePlant = plant.objects.get(id=id)
 
@@ -150,7 +147,7 @@ def deletePlant(request, id):
     
     return JsonResponse({'message': 'Invalid request method.'}, status=400)
 
-# delete commonName and familyName that isn't use
+# Delete commonName and familyName that isn't use
 def familyNameCommonNameChecker():
     allFamilyName = familyName.objects.all()
     allCommonName = commonName.objects.all()
@@ -161,7 +158,7 @@ def familyNameCommonNameChecker():
     orphansFamily.delete()
     orphansCommon.delete()
 
-# normal Search engine page
+# Normal Search engine
 @csrf_exempt
 def search(request):
     input = request.POST.get('input')
@@ -171,7 +168,7 @@ def search(request):
     
     return redirect('searchResult', input=input)
  
-# normal search engine system
+# Normal search engine system page
 def searchResult(request, input):
     
     filteredPlant = plant.objects.filter(
@@ -185,7 +182,7 @@ def searchResult(request, input):
 
     return render(request, "application/result.html", {"venues" : venues})
 
-# advance search engine page
+# Advance search engine
 @csrf_exempt
 def advanceSearch(request):
     name = request.POST.get('name')
@@ -208,7 +205,7 @@ def advanceSearch(request):
     return redirect('advanceSearchResult', name=name, scientificName=scientificName,
                     familyName=familyName, commonName=commonName)
 
-# advance search engine system
+# Advance search engine system page
 def advanceSearchResult(request, name, scientificName, familyName, commonName):
     filteredPlant = plant.objects.filter(
         Q(name__icontains=name) | Q(scientificName__icontains=scientificName)
@@ -221,7 +218,7 @@ def advanceSearchResult(request, name, scientificName, familyName, commonName):
 
     return render(request, "application/result.html", {"venues" : venues})
 
-# admin search engine page
+# Admin search engine 
 @csrf_exempt
 def adminSearch(request):
     if request.user.is_authenticated:
@@ -235,7 +232,7 @@ def adminSearch(request):
         messages.success(request, ("Please login to use the dashboard"))
         return redirect('login')
 
-# admin search engine system
+# Admin search engine system page
 def adminSearchResult(request, input):
     filteredPlant = plant.objects.filter(
         Q(name__icontains=input) | Q(scientificName__icontains=input)
@@ -248,14 +245,16 @@ def adminSearchResult(request, input):
 
     return render(request, "application/adminResult.html", {"venues" : venues, "admin" : True})
 
-# edit plant page and system
+# Edit plant page and system
 @csrf_exempt
 def editPlant(request, id):
-    editPlant = plant.objects.get(id=id)
+    editPlant = plant.objects.get(id=id) # Get the plant that you want to edit
     edit = True
     title = "แก้ไขข้อมูล"
 
     if request.method == "POST":
+
+        # Get all the item from the post request
         plantID = request.POST.get('id')
         name = request.POST.get('name')
         scientificName = request.POST.get('scientific-name')
@@ -272,6 +271,7 @@ def editPlant(request, id):
         plantImages = request.FILES.getlist('image-input')
         existPlantImages = request.POST.getlist('plant-image-info')
 
+        # Get all the item from the existed plant
         existPlant = plant.objects.get(id=plantID)
         existPlant.name = name
         existPlant.scientificName = scientificName
@@ -292,13 +292,11 @@ def editPlant(request, id):
                 if relate_instance_count == 0:
                     name_to_remove.delete()
 
-
+        # Put all new values to familyNames
         for name in familyNames:
             if name != '':
                 nameInstance, create = familyName.objects.get_or_create(familyName=name)
                 existPlant.familyNameList.add(nameInstance)
-
-        
         
         # Clear the existed item in commonNames before adding new values
         for name in existPlant.commonNameList.all():
@@ -309,6 +307,7 @@ def editPlant(request, id):
                 if relate_instance_count == 0:
                     name_to_remove.delete()
 
+        # Put all new values to commonNames
         for name in commonNames:
             if name != '':
                 nameInstance, create = commonName.objects.get_or_create(commonName=name)
@@ -323,6 +322,7 @@ def editPlant(request, id):
                 image_to_remove.delete()
                 existPlant.save()
 
+        # Put all new images to plantImages
         for image in plantImages:
             imageInstance = plantImage.objects.create(image=image)
             existPlant.plantImageList.add(imageInstance)
@@ -334,11 +334,14 @@ def editPlant(request, id):
 
     return render(request, "application/edit.html", {"plant" : editPlant, "edit" : edit, "title" : title})
 
-# edit plant page and system
+# Create plant page and system
 @csrf_exempt
 def create(request):
     title = "เพิ่มข้อมูล"
+
     if request.method == "POST":
+
+        # Get all the item from the post request
         name = request.POST.get('name')
         scientificName = request.POST.get('scientific-name')
         familyNames = request.POST.getlist('family-name')
@@ -352,24 +355,29 @@ def create(request):
         reference = request.POST.get('reference')
         plantImages = request.FILES.getlist('image-input')
 
-        print(name, scientificName, familyNames, commonNames, use
-              , characteristic , distribution, habitat, care, location, reference, plantImages)
+        # Check all added item
+        # print(name, scientificName, familyNames, commonNames, use
+        #       , characteristic , distribution, habitat, care, location, reference, plantImages)
 
+        # Create new object 
         newPlant = plant.objects.create(name=name, scientificName=scientificName
                         , uses=use, characteristic=characteristic, 
                         distribution=distribution, habitat=habitat,
                         care=care, location=location, references=reference)
-         
+        
+        # Add familyNames to the object
         for name in familyNames:
             if name != '':
                 nameInstance, create = familyName.objects.get_or_create(familyName=name)
                 newPlant.familyNameList.add(nameInstance)
 
+        # Add commonNames to the object
         for name in commonNames:
             if name != '':
                 nameInstance, create = commonName.objects.get_or_create(commonName=name)
                 newPlant.commonNameList.add(nameInstance)
 
+        # Add image to the object
         for image in plantImages:
             imageInstance = plantImage.objects.create(image=image)
             newPlant.plantImageList.add(imageInstance)
