@@ -12,7 +12,7 @@
 
 * Plant List Page - Display all plants in the database
 
-* Letter Index List - Display all plants based on the index letter
+* Letter Index List - Display all plants based on the index letter sorting from the first alphabet of each section in order. Name -> Scientific Name -> Family Name -> Common Name
 
 * Family Index List - Display all the plants according to their family names
 
@@ -179,8 +179,14 @@
 
 ![Admin Dashboard Page Phone](images/adminDashboard_phone.png)
 
+## Video Explaination
+
+Video : https://www.youtube.com/watch?v=vVvWTs1bCO0
+
 ## How to run the application
 
 * Install project dependencies by running pip install -r requirements.txt
 * Make and apply migrations by running python manage.py makemigrations and python manage.py migrate.
 * To use the admin functionality Username : admin, Password : Brain091 
+
+
