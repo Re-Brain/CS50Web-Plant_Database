@@ -183,3 +183,4 @@
 
 * Install project dependencies by running pip install -r requirements.txt
 * Make and apply migrations by running python manage.py makemigrations and python manage.py migrate.
+* To use the admin functionality Username : admin, Password : Brain091 
