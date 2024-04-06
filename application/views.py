@@ -250,7 +250,7 @@ def adminSearchResult(request, input):
 def editPlant(request, id):
     editPlant = plant.objects.get(id=id) # Get the plant that you want to edit
     edit = True
-    title = "แก้ไขข้อมูล"
+    title = "Edit"
 
     if request.method == "POST":
 
@@ -337,7 +337,7 @@ def editPlant(request, id):
 # Create plant page and system
 @csrf_exempt
 def create(request):
-    title = "เพิ่มข้อมูล"
+    title = "Add Data"
 
     if request.method == "POST":
 

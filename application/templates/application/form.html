@@ -54,14 +54,14 @@
         </div>
 
         <div class="mb-3 button-container">
-            <button class="btn btn-secondary add-button" onclick="addName(event, 'familyName', 'delete-family-name', 'family-name')">เพิ่มชื่อ</button>
+            <button class="btn btn-secondary add-button" onclick="addName(event, 'familyName', 'delete-family-name', 'family-name')">Add Name</button>
             <button class="btn btn-success ms-2 delete-button" onclick="deleteName(event, 'familyName' , 'delete-family-name')" 
             id="delete-family-name" 
             {% if edit and plant.familyNameList.count >= 2 %} 
                 style= "display: block;"
             {% else %}
                 style= "display: none;"
-            {% endif %}>ลบชื่อ</button>
+            {% endif %}>Delete Name</button>
         </div>
 
         <div class="mb-3 multipleName" id="commonName">
@@ -83,14 +83,14 @@
         </div>
 
         <div class="mb-3 button-container">
-            <button class="btn btn-secondary add-button" onclick="addName(event, 'commonName', 'delete-common-name', 'common-name')">เพิ่มชื่อ</button>
+            <button class="btn btn-secondary add-button" onclick="addName(event, 'commonName', 'delete-common-name', 'common-name')">Add Name</button>
             <button class="btn btn-success ms-2 delete-button" onclick="deleteName(event, 'commonName' , 'delete-common-name')" 
             id="delete-common-name"   
             {% if edit and plant.commonNameList.count >= 2 %} 
                 style= "display: block;"
             {% else %}
                 style= "display: none;"
-            {% endif %}>ลบชื่อ</button>
+            {% endif %}>Delete Name</button>
         </div>
 
         <div class="mb-3">

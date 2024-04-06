@@ -7,11 +7,11 @@
 
 {% block body %}
     <div class="dashboard-option">
-        <h1>ระบบจัดการฐานข้อมูล</h1>
+        <h1>Data Administration System</h1>
         <div class="m-3 mode-container">
-            <a href="{% url 'dashboard' %}" class="btn btn-primary btn-sm m-1 button-admin" id="dashboard">แก้ไข/ลบข้อมูล</a>
-            <a href="{% url 'create' %}" class="btn btn-primary btn-sm m-1 button-admin" id="create">เพิ่มข้อมูล</a> 
-            <a href="{% url 'logout' %}" class="btn btn-primary btn-sm m-1 button-admin-logout">ออกจากระบบ</a>
+            <a href="{% url 'dashboard' %}" class="btn btn-primary btn-sm m-1 button-admin" id="dashboard">Change/Delete</a>
+            <a href="{% url 'create' %}" class="btn btn-primary btn-sm m-1 button-admin" id="create">Add new Data</a> 
+            <a href="{% url 'logout' %}" class="btn btn-primary btn-sm m-1 button-admin-logout">Logout</a>
         </div>
     </div>
 

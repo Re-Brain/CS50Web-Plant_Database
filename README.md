@@ -97,15 +97,89 @@
 * In the static folder includes the bootstrap folder to use all the bootstrap tools, css folder, images folder which store the background of the webiste, and javascript folder
 
 * Javascript folder includes all frontend javascript in the project
+
     * form.js - all frontend function in create and edit data function
     * index.js - function that clear all data in advance search in the home page
     * letterIndexList.js - Display all alphabets buttons in Thai and English
     * lsit.js - all function in the admin dashboard to delte, and go to edit page
 
+<br>
+
 * media folder includes all the static images of each plant in the database when the image was added
 
 * plantDatabase folder includes asgi.py, settings.py, urls.py, and wsgi.py
 
+## Pages
+
+### Home Page
+
+![Home Page](images/home.png)
+
+### Advance Search Section
+
+![Home Page](images/advanceSearch.png)
+
+### All Plant Page
+
+![Home Page](images/allPlant.png)
+
+### Letter Index Page
+
+![Letter Index Page](images/letterIndexPage.png)
+
+### Family Index Page
+
+![Family Index Page](images/familyIndexPage.png)
+
+### List of all plant with same family name
+
+![List of all plant with same family name](images/familyIndexPageResult.png)
+
+### Plant Info Page
+
+![Plant Info Page](images/plantInfo.png)
+
+### Admin Dashboard Page
+
+![Admin Dashboard Page](images/adminDashboard.png)
+
+### Add Data Page
+
+![Add Data Page](images/addData.png)
+
+### Edit Data Page
+
+![Edit Data Page](images/editData.png)
+
+## Table Responsive 
+
+### Home Page Tablet
+
+![Home Page Tablet](images/home_tablet.png)
+
+### All Plant Page Tablet
+
+![All Plant Page Tablet](images/allPlant_tablet.png)
+
+### Admin Dashboard Page Tablet
+
+![Edit Data Page](images/adminDashboard_tablet.png)
+
+## Mobile Responsive
+
+### Home Page Phone
+
+![Home Page Phone](images/home_phone.png)
+
+### All Plant Page Phone
+
+![All Plant Page Phone](images/allPlant_phone.png)
+
+### Admin Dashboard Page Phone
+
+![Admin Dashboard Page Phone](images/adminDashboard_phone.png)
+
 ## How to run the application
+
 * Install project dependencies by running pip install -r requirements.txt
 * Make and apply migrations by running python manage.py makemigrations and python manage.py migrate.
