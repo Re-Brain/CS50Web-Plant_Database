@@ -4,13 +4,11 @@
 
 ## Main Components
 
-* Search Function
-
 * Home Page
 
-    * Advance Search Function
-  
-<br>
+* Search Function
+
+* Advance Search Function (in home page)
 
 * Plant List Page - Display all plants in the database
 
