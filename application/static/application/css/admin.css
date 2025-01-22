@@ -23,6 +23,16 @@
     align-items: center;
 }
 
+.admin-acess
+{
+    display: block;
+}
+
+.admin-acess-message
+{
+    display: none;
+}
+
 .button-admin, .button-admin-logout
 {
     background-color: #4CAF50;
@@ -89,45 +99,34 @@
     border-radius: 20px;
 }
 
-@media only screen and (max-width: 1350px) {
+@media only screen and (max-width: 1024px) {
 
-    #adminSearch
+    .admin-acess
     {
-        width: 60%;
-    }
-}
-
-@media only screen and (max-width: 500px) {
-
-    .dashboard-option h1
-    {
-        font-size: 30px;
+        display: none;
     }
 
-    .button-admin ,.button-admin-logout
+    .admin-acess-message
+    {
+        display: block;
+    }
+
+    .button-admin, .button-admin-logout
     {
         font-size: 15px;
     }
 
-    .admin-title
+    .admin-acess-message > p
     {
-        font-size: 25px;
+        font-size : 20px;
+        margin-top: 10px;
+        color: #fff;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 1);
+        text-align: center;
     }
 
-    #adminSearch
+    .dashboard-option h1
     {
-        width: 100%;
-    }
-
-    .edit-button
-    {
-        font-size: 10px;
-        margin: 2px;
-    }
-
-    .delete-button
-    {
-        font-size: 10px;
-        margin: 2px;
+        font-size: 36px;
     }
 }

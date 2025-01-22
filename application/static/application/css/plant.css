@@ -64,9 +64,14 @@
 
     .col-title
     {
-        font-size: 12px;
-        text-align: center;
+        font-size: 10px;
         padding: 0;
+        text-align: center;
+    }
+
+    .data-image
+    {
+        flex-direction: column;
     }
 
     .data-item

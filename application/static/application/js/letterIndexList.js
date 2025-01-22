@@ -45,11 +45,11 @@ function createButtons(buttonContainer, min , max)
   
         if (charlist.includes(letter))
         {
-          button.className = 'btn btn-success mr-2 m-1' // Bootstrap button styling
+          button.className = 'btn btn-success mr-2 m-1 character-button' // Bootstrap button styling
         }
         else
         {
-          button.className = 'btn btn-primary mr-2 m-1' // Bootstrap button styling
+          button.className = 'btn btn-primary mr-2 m-1 character-button' // Bootstrap button styling
         }
        
         button.addEventListener("click", function (event) {          

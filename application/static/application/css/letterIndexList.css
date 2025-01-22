@@ -39,14 +39,58 @@
     background-color: #006400;
 }
 
-#eng-button-container, #thai-button-container
+#button-container
 {
-   margin: 20px;
+   display: flex;
+   flex-direction: column;
+   
 }
 
-@media only screen and (max-width: 500px) {
+#eng-button-container, #thai-button-container
+{
+   display: flex;
+   overflow-x: auto;
+   margin: 20px;
+   padding: 10px;  
+}
+
+#eng-button-container::-webkit-scrollbar, #thai-button-container::-webkit-scrollbar {
+   width: 8px;  
+   height: 8px;
+}
+
+#eng-button-container::-webkit-scrollbar-thumb, #thai-button-container::-webkit-scrollbar-thumb {
+   background-color: #4CAF50; 
+   border-radius: 10px; 
+   border: 2px solid #fff; 
+}
+
+#eng-button-container::-webkit-scrollbar-track, #thai-button-container::-webkit-scrollbar-track {
+   background-color: #f1f1f1;
+   border-radius: 10px;
+}
+
+@media only screen and (max-width: 1024px)
+{
+   #eng-button-container::-webkit-scrollbar, #thai-button-container::-webkit-scrollbar {
+      display: none;
+   }
+}
+
+@media only screen and (max-width: 500px){
    .container
    {
       width: 100%;
+   }
+
+   .character-button
+   {
+      width: 100px;
+   }
+   
+   #eng-button-container, #thai-button-container
+   {
+      margin: 0px;
+      padding: 5px;
    }
 }

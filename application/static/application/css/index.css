@@ -131,7 +131,7 @@
    font-size: 18px;
 }
 
-@media only screen and (max-width: 1350px) {
+@media only screen and (max-width: 1024px) {
 
     #detail
     {
@@ -162,11 +162,6 @@
 
 @media only screen and (max-width: 500px)
 {
-    .menu-item
-    {
-        width: 200px;
-        margin: 10px;
-    }
 
     #detail
     {
